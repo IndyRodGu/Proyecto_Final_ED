@@ -10,6 +10,8 @@ public class Tropa {
     private TipoTropa vulnerability;
     private Double towerWreckage; // hay danio de 1.5 a la torre
     private boolean isPlayerTropa=  false;
+    private boolean seleccion = false; // Seleccionar los tipos de tropa
+    private boolean aceptada = false; // Aceptar las tropas
     private ImageIcon image; /// Agrega las imagenes de las tropas
 
 // Constructor
@@ -120,6 +122,37 @@ public class Tropa {
             default:
                 break;
         }
+    }
+    
+// Selelcionar la tropa
+    public void seleccionar (){
+        seleccion = true;
+    }
+    
+    // Modificar la tropa sin haber sido aceptada
+    public void modificar (){
+        seleccion = false;
+    }
+    
+    // Verificar el estado (seleecionad0) de una tropa
+    public boolean seleccionada(){
+        return seleccion;
+    }
+    
+    // Aceptar la tropa
+    public void aceptar(){
+        aceptada = true;
+    }
+    
+    // Verificar el estado (aceptado) de una tropa
+    public boolean siAceptada (){
+        return aceptada;
+    }
+    
+    // Modificar una tropa que ya fue aceptada
+    public void modificar (TipoTropa nuevoTipo){
+        setTipoTropa(nuevoTipo);
+        seleccion = false;
     }
 }
     
