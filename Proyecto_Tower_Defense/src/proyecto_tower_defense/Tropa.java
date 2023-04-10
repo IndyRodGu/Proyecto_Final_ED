@@ -1,7 +1,7 @@
 
 package proyecto_tower_defense;
 
-import javax.swing.ImageIcon;
+import javax.swing.ImageIcon; // Permite agregar Imagenes
 
 /* Clase Tropa, define y compara los tipos de tropas entre si*/
 
@@ -9,7 +9,9 @@ public class Tropa {
     private TipoTropa TipoTropa;
     private TipoTropa vulnerability;
     private Double towerWreckage; // hay danio de 1.5 a la torre
-    private boolean isPlayeTroop=  false;
+    private boolean isPlayerTropa=  false;
+    private boolean seleccion = false; // Seleccionar los tipos de tropa
+    private boolean aceptada = false; // Aceptar las tropas
     private ImageIcon image; /// Agrega las imagenes de las tropas
 
 // Constructor
@@ -44,11 +46,11 @@ public class Tropa {
     }
 
     //Gets and Sets
-    public TipoTropa getTroopType() {
+    public TipoTropa getTipoTropa() {
         return TipoTropa;
     }
 
-    public void setTroopType(TipoTropa TipoTropa) {
+    public void setTipoTropa(TipoTropa TipoTropa) {
         this.TipoTropa = TipoTropa;
 
 /*Para cambiar el tipo de tropa, cada uno tiene debilidad,imagen y nivel danio*/
@@ -90,30 +92,67 @@ public class Tropa {
     }
 
     public boolean getIsPlayerTropa() {
-        return isPlayerTroop;
+        return isPlayerTropa;
     }
     
-// Colocar las imagenes de las tropas
-    public void setIsPlayerTropa(boolean isPlayerTroop) {
-        this.isPlayerTropa = isPlayerTroop;
+// Determinar la cantidad de danio que causa el tipo de tropa a la torre
+    public void setIsPlayerTropa(boolean isPlayerTropa) {
+        this.isPlayerTropa = isPlayerTropa;
         
         switch (TipoTropa) {
             
             case ARCHER:
-                this.image = new ImageIcon("src/image/Archer Rotated.png");
+                this.vulnerability = TipoTropa.KNIGHT;
+                this.towerWreckage = 1.0;
+                this.image = new ImageIcon("src/images/archer.png");
                 break;
                 
             case KNIGHT:
-                this.image = new ImageIcon("src/image/Warrior Rotated.png");
+                this.vulnerability = TipoTropa.WARLOCK;
+                this.towerWreckage = 2.0;
+                this.image = new ImageIcon("src/images/knight.png");
                 break;
                 
             case WARLOCK:
-                this.image = new ImageIcon("src/image/Wizard Rotated.png");
+                this.vulnerability = TipoTropa.ARCHER;
+                this.towerWreckage = 1.5;
+                this.image = new ImageIcon("src/images/archer.png");
                 break;
                 
             default:
                 break;
         }
+    }
+    
+// Selelcionar la tropa
+    public void seleccionar (){
+        seleccion = true;
+    }
+    
+    // Modificar la tropa sin haber sido aceptada
+    public void modificar (){
+        seleccion = false;
+    }
+    
+    // Verificar el estado (seleecionad0) de una tropa
+    public boolean seleccionada(){
+        return seleccion;
+    }
+    
+    // Aceptar la tropa
+    public void aceptar(){
+        aceptada = true;
+    }
+    
+    // Verificar el estado (aceptado) de una tropa
+    public boolean siAceptada (){
+        return aceptada;
+    }
+    
+    // Modificar una tropa que ya fue aceptada
+    public void modificar (TipoTropa nuevoTipo){
+        setTipoTropa(nuevoTipo);
+        seleccion = false;
     }
 }
     
