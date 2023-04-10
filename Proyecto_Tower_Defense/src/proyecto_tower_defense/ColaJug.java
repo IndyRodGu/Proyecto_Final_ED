@@ -6,7 +6,7 @@ public class ColaJug {
     private NodoColaJug cola;
     private int qtyTropa;
     
-    TipoTropa TipoTropa = Tropa.seleccionar();
+    //private TipoTropa TipoTropa = Tropa.seleccionar();
     Tropa Tropa = new Tropa (TipoTropa);
     
     public ColaJug() {
