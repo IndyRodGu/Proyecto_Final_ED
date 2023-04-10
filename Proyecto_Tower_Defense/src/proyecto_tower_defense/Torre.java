@@ -18,5 +18,5 @@ public class Torre {
             return true;
         } // Si la torre todavía tiene vidas, devuelve falso
         return false;
-}
+    }
 }
