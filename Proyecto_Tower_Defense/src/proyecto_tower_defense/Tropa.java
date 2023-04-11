@@ -9,74 +9,52 @@ public class Tropa {
     private TipoTropa TipoTropa;
     private TipoTropa vulnerability;
     private Double towerWreckage; // hay danio de 1.5 a la torre
-    private boolean isPlayerTropa=  false;
-    private boolean seleccion = false; // Seleccionar los tipos de tropa
-    private boolean aceptada = false; // Aceptar las tropas
     private ImageIcon image; /// Agrega las imagenes de las tropas
-
-// Constructor
-    public Tropa(TipoTropa TipoTropa) {
+    private int id;     // identificador
+    private int player; //1 = jugador y 2 = cpu (impares jugador, pares CPU)
+    
+    
+// Constructor -----------------------------------------------------------------
+    
+    public Tropa(TipoTropa TipoTropa, int id, int player) {
         this.TipoTropa = TipoTropa;
+         this.id = id;
+        this.player = player;
+        setTipoTropa(TipoTropa);
+    }
 
 /* Asigna una debilidad, su imagen y el danio que causa */
 
-        switch (TipoTropa) {
-            
-            case WARLOCK:
-                this.vulnerability = TipoTropa.ARCHER; // ARCHER gana WARLOCK
-                this.towerWreckage = 1.5;
-                this.image = new ImageIcon("src/images/warlock.png");
-                break;
-                
-            case KNIGHT:
-                this.vulnerability = TipoTropa.WARLOCK; // WARLOCK gana KNIGHT
-                this.towerWreckage = 2.0;
-                this.image = new ImageIcon("src/images/knight.png");
-                break;
-                
-            case ARCHER:
-                this.vulnerability = TipoTropa.KNIGHT; // KNIGHT gana ARCHER
-                this.towerWreckage = 1.0;
-                this.image = new ImageIcon("src/images/archer.png");
-                break;
-                      
-            default:
-                break;
-        }
-    }
+      
 
     //Gets and Sets
-    public TipoTropa getTipoTropa() {
-        return TipoTropa;
-    }
-
+    
+    /*Para cambiar el tipo de tropa, cada uno tiene debilidad,imagen y nivel daño*/
     public void setTipoTropa(TipoTropa TipoTropa) {
         this.TipoTropa = TipoTropa;
-
-/*Para cambiar el tipo de tropa, cada uno tiene debilidad,imagen y nivel danio*/
         switch (TipoTropa) {
-            
-            case WARLOCK:
-                this.vulnerability = TipoTropa.ARCHER; // ARCHER gana WARLOCK
-                this.towerWreckage = 1.5;
-                this.image = new ImageIcon("src/images/warlock.png");
-                break;
-                
-             case KNIGHT:
-                this.vulnerability = TipoTropa.WARLOCK; // WARLOCK gana KNIGHT
-                this.towerWreckage = 2.0;
-                this.image = new ImageIcon("src/images/knight.png");
-                break;
-                
-            case ARCHER:
-                this.vulnerability = TipoTropa.KNIGHT ; // KNIGHT gana ARCHER
-                this.towerWreckage = 1.0;
+            case ARQUERO:
                 this.image = new ImageIcon("src/images/archer.png");
-                break;     
-           
+                this.towerWreckage = 1.0;
+                this.vulnerability = TipoTropa.CABALLERO;              
+                break;
+            case CABALLERO:
+                this.image = new ImageIcon("src/images/knight.png");
+                this.towerWreckage = 2.0;
+                this.vulnerability = TipoTropa.MAGO;
+                break;
+            case MAGO:
+                this.image = new ImageIcon("src/images/warlock.png");
+                this.towerWreckage = 1.5;
+                this.vulnerability = TipoTropa.ARQUERO;
+                break;
             default:
                 break;
         }
+    }
+    
+    public TipoTropa getTipoTropa() {
+        return TipoTropa;
     }
 
     public TipoTropa getVulnerability() {
@@ -91,69 +69,6 @@ public class Tropa {
         return image;
     }
 
-    public boolean getIsPlayerTropa() {
-        return isPlayerTropa;
-    }
-    
-// Determinar la cantidad de danio que causa el tipo de tropa a la torre
-    public void setIsPlayerTropa(boolean isPlayerTropa) {
-        this.isPlayerTropa = isPlayerTropa;
-        
-        switch (TipoTropa) {
-            
-            case ARCHER:
-                this.vulnerability = TipoTropa.KNIGHT;
-                this.towerWreckage = 1.0;
-                this.image = new ImageIcon("src/images/archer.png");
-                break;
-                
-            case KNIGHT:
-                this.vulnerability = TipoTropa.WARLOCK;
-                this.towerWreckage = 2.0;
-                this.image = new ImageIcon("src/images/knight.png");
-                break;
-                
-            case WARLOCK:
-                this.vulnerability = TipoTropa.ARCHER;
-                this.towerWreckage = 1.5;
-                this.image = new ImageIcon("src/images/archer.png");
-                break;
-                
-            default:
-                break;
-        }
-    }
-    
-// Selelcionar la tropa
-    public void seleccionar (){
-        seleccion = true;
-    }
-    
-    // Modificar la tropa sin haber sido aceptada
-    public void modificar (){
-        seleccion = false;
-    }
-    
-    // Verificar el estado (seleecionad0) de una tropa
-    public boolean seleccionada(){
-        return seleccion;
-    }
-    
-    // Aceptar la tropa
-    public void aceptar(){
-        aceptada = true;
-    }
-    
-    // Verificar el estado (aceptado) de una tropa
-    public boolean siAceptada (){
-        return aceptada;
-    }
-    
-    // Modificar una tropa que ya fue aceptada
-    public void modificar (TipoTropa nuevoTipo){
-        setTipoTropa(nuevoTipo);
-        seleccion = false;
-    }
 }
     
 

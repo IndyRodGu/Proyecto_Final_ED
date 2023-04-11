@@ -2,8 +2,9 @@
 package proyecto_tower_defense;
 
 public class ColaJug {
-    private NodoColaJug cabeza;
-    private NodoColaJug cola;
+    
+    private NodoCola cabeza;
+    private NodoCola cola;
     private int qtyTropa;
    /* 
     //private TipoTropa TipoTropa = Tropa.seleccionar();
