@@ -6,11 +6,12 @@ public class Proyecto_Tower_Defense {
 
     public static void main(String[] args) {
         
+        
+        menu();
+
         // Cola para el jugador
         // ColaJug -> [ ] [ ]
         // Cola para CPU
-        
-        
 //        do{
 //            escena1();
 //            
@@ -50,5 +51,61 @@ public class Proyecto_Tower_Defense {
         // boton aceptar
     }
     
+    public static void menu() {
+
+        int op = Integer.parseInt(JOptionPane.showInputDialog(null, "Tower Defense\n"
+                + "1- Iniciar\n"
+                + "2- Salir"));
+
+        switch (op) {
+
+            case (1):
+
+                break;
+
+            case (2):
+
+                break;
+
+            default:
+
+                JOptionPane.showMessageDialog(null, "Ingrese una opcion valida");
+                menu();
+
+                break;
+        }
+
+    }
+    
+     public static void menuJuego() {
+
+        int op = Integer.parseInt(JOptionPane.showInputDialog(null, ""
+                + "Escoger\n"
+                + "2- Salir"));
+
+        switch (op) {
+
+            case (1):
+
+                break;
+
+            case (2):
+
+                break;
+
+            default:
+
+                JOptionPane.showMessageDialog(null, "Ingrese una opcion valida");
+                menu();
+
+                break;
+        }
+
+    }
+    
+    
     
 }
+
+
+
