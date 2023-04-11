@@ -18,27 +18,27 @@ public class ColaCPU {
         this.ronda = ronda;
         this.aleatorio = new Random();
         for (int i = 0; i < this.ronda +3; i++) {
-            this.crearTropa();            
+            //this.crearTropa();            
         }
     }
     
-    public void crearTropa(){
-        
-        TipoTropa[] tiposTropa = TipoTropa.values();
-        TipoTropa tipo = tiposTropa[aleatorio.nextInt(tiposTropa.length)];
-        Tropa tropa = new Tropa(tipo);
-        NodoColaCPU nuevoNodo = new NodoColaCPU(tropa);
-        
-        if (this.empty()) { // Verifica que el nodo este vacio
-            this.frente = nuevoNodo;
-            this.last = nuevoNodo;
-        } else {
-            this.last.setSiguiente(nuevoNodo);
-            this.last = nuevoNodo;
-        }
-        this.tamano++;
-    }
-    
+//    public void crearTropa(){
+//        
+//        TipoTropa[] tiposTropa = TipoTropa.values();
+//        TipoTropa tipo = tiposTropa[aleatorio.nextInt(tiposTropa.length)];
+//        Tropa tropa = new Tropa(tipo);
+//        NodoColaCPU nuevoNodo = new NodoColaCPU(tropa);
+//        
+//        if (this.empty()) { // Verifica que el nodo este vacio
+//            this.frente = nuevoNodo;
+//            this.last = nuevoNodo;
+//        } else {
+//            this.last.setSiguiente(nuevoNodo);
+//            this.last = nuevoNodo;
+//        }
+//        this.tamano++;
+//    }
+//    
     // Eliminar las tropas
     public Tropa eliminarTropa() {
         if (this.empty()) { // Verifica si el nodo esta vacio
