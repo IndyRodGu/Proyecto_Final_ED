@@ -1,26 +1,22 @@
 /* Clase utilizada para la gestion de la Cola de tropas del CPU*/
 package proyecto_tower_defense;
 
-public class ColaJug {
-    private NodoColaJug cabeza;
-    private NodoColaJug cola;
-    private int qtyTropa;
+public class Cola {
     
-    //private TipoTropa TipoTropa = Tropa.seleccionar();
-    Tropa Tropa = new Tropa (TipoTropa);
+    private NodoCola cabeza;
+    int largo;
     
-    public ColaJug() {
+    public Cola() {
             this.cabeza = null;
-            this.cola = null;
-            this.qtyTropa = 0;
+            this.largo = 0;
         }
      
     // Metodo para agregar las tropas
-    public void agregaTropa(int ronda){ // Recibe la ronda actual para calcular
-        // la cantidad de tropas a elegir en esta ronda
-        int qtyTropa = ronda + 4;
-        NodoColaJug nuevoNodoColaJug = new NodoColaJug();
-        nuevoNodoColaJug.qtyTropa = qtyTropa;
+    
+    public void agregaTropa(Tropa t){ 
+        NodoCola nodo = new NodoCola(t);
+        
+        //nodo.qtyTropa = qtyTropa;
         nuevoNodoColaJug.setSiguiente; = null; // Agrega la cantidad de tropas
         // a la cola
           
