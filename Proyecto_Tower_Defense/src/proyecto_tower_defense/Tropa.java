@@ -69,6 +69,27 @@ public class Tropa {
         return image;
     }
 
-}
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(int player) {
+        this.player = player;
+    }
+
+    @Override
+    public String toString() {
+        return "Tropa{" + "TipoTropa=" + TipoTropa + ", vulnerability=" + vulnerability + ", towerWreckage=" + towerWreckage + ", image=" + image + ", id=" + id + ", player=" + player + "}";
+    }
+    
     
 
+}

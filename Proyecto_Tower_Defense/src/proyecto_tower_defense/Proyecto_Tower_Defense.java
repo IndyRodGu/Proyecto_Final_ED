@@ -21,7 +21,7 @@ public class Proyecto_Tower_Defense {
             switch (op) {
                 case (1): // Escena 1: se escogen las tropas
                     Cola colaJug = menuJuego(disponibles);
-                    //op = 2; // para "cambiar de escena"
+                    op = 2; // para "cambiar de escena"
                     ronda++; // Aumenta una ronda para la siguiente
                     break;
 
@@ -93,14 +93,16 @@ public class Proyecto_Tower_Defense {
                     if (arq < disp) {
                        // agregar los arqueros a la cola**
                        // System.out.println("arq:" + arq); // PRUEBA
+                       colaJug.agregaTropaJugador(arq, TipoTropa.ARQUERO);
                        disp = disp - arq; //Resta de disp los miemb ingresados
                     } else if (arq == disp){
                         // agregar los arqueros a la cola**
                         // System.out.println("arq:" + arq); // PRUEBA
+                        colaJug.agregaTropaJugador(arq, TipoTropa.ARQUERO);
                         disp = disp - arq; 
                     } else {
-                        String limSup= JOptionPane.showInputDialog
-                        ("Cantidad ingresada supera los disponibles, "
+                        JOptionPane.showMessageDialog(null,
+                        "Cantidad ingresada supera los disponibles, "
                         + "intentelo de nuevo");
                     }
                     
@@ -112,15 +114,18 @@ public class Proyecto_Tower_Defense {
                     
                     if (cab < disp) {
                        // agregar los arqueros a la cola**
+                       colaJug.agregaTropaJugador(cab, TipoTropa.CABALLERO);
+                       
                        disp = disp - cab; //Resta de disp los miemb ingresados
                     } else if (cab == disp){
                         // agregar los arqueros a la cola**
+                       colaJug.agregaTropaJugador(cab, TipoTropa.CABALLERO);
                         disp = disp - cab; 
                         
                     } else {
-                        String limSup= JOptionPane.showInputDialog
-                        ("Cantidad ingresada supera los disponibles, "
-                                + "intentelo de nuevo");
+                        JOptionPane.showMessageDialog(null,
+                        "Cantidad ingresada supera los disponibles, "
+                        + "intentelo de nuevo");
                     }
                     
                     break;
@@ -130,13 +135,16 @@ public class Proyecto_Tower_Defense {
                     ("Ingrese la cantidad de magos deseados\n"));
                     if (mag < disp) {
                        // agregar los arqueros a la cola**
+                       colaJug.agregaTropaJugador(mag, TipoTropa.MAGO);
+                       
                        disp = disp - mag; //Resta de disp los miemb ingresados
                     } else if (mag == disp){
                         // agregar los arqueros a la cola**
+                        colaJug.agregaTropaJugador(mag, TipoTropa.MAGO);
                         disp = disp - mag; 
                     } else {
-                        String limSup= JOptionPane.showInputDialog
-                        ("Cantidad ingresada supera los disponibles, "
+                        JOptionPane.showMessageDialog(null,
+                        "Cantidad ingresada supera los disponibles, "
                         + "intentelo de nuevo");
                     }
                     break;
@@ -153,6 +161,7 @@ public class Proyecto_Tower_Defense {
 
                     break;
             }
+            //colaJug.to_String();
         }
         return colaJug;
     }
