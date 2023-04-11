@@ -1,37 +1,32 @@
 /* Clase utilizada para la gestion de la Cola de tropas del CPU*/
 package proyecto_tower_defense;
+import java.util.Random;
 
-<<<<<<< Updated upstream:Proyecto_Tower_Defense/src/proyecto_tower_defense/Cola.java
 public class Cola {
-=======
-public class ColaJug {
-    
-    private NodoColaJug cabeza;
-    int largo;
->>>>>>> Stashed changes:Proyecto_Tower_Defense/src/proyecto_tower_defense/ColaJug.java
-    
+
     private NodoCola cabeza;
-    int largo;
+    private NodoCola cola;
+    private int qtyTropa;
+    private Random aleatorio;
+    
     
     public Cola() {
-            this.cabeza = null;
-            this.largo = 0;
-        }
+        this.cabeza = null;
+        this.cola = null;
+        this.qtyTropa = 0;  // Cantidad de tropas
+    }
      
     // Metodo para agregar las tropas
     
     public void agregaTropa(Tropa t){ 
-<<<<<<< Updated upstream:Proyecto_Tower_Defense/src/proyecto_tower_defense/Cola.java
         NodoCola nodo = new NodoCola(t);
         
         //nodo.qtyTropa = qtyTropa;
-        nuevoNodoColaJug.setSiguiente; = null; // Agrega la cantidad de tropas
-=======
-        NodoColaJug nodo = new NodoColaJug(t);
+//        nuevoNodoColaJug.setSiguiente; = null; // Agrega la cantidad de tropas
+//        NodoColaJug nodo = new NodoColaJug(t);
         
         //nodo.qtyTropa = qtyTropa;
       /*  nuevoNodoColaJug.setSiguiente; = null; // Agrega la cantidad de tropas
->>>>>>> Stashed changes:Proyecto_Tower_Defense/src/proyecto_tower_defense/ColaJug.java
         // a la cola
           
         if (cola == null){  // Verifica que la cabeza este vacia   
@@ -59,4 +54,7 @@ public class ColaJug {
         return qtyTropa;
     }
     }
+
+    } //*/
+}
 
