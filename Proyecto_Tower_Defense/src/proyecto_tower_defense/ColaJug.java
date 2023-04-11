@@ -5,7 +5,7 @@ public class ColaJug {
     private NodoColaJug cabeza;
     private NodoColaJug cola;
     private int qtyTropa;
-    
+   /* 
     //private TipoTropa TipoTropa = Tropa.seleccionar();
     Tropa Tropa = new Tropa (TipoTropa);
     
@@ -46,6 +46,6 @@ public class ColaJug {
             cola = null;
         }
         return qtyTropa;
-    }
+    }*/
     }
 
