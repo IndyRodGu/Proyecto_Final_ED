@@ -43,6 +43,7 @@ public class Cola {
             this.qtyTropa++;
         }
     }
+
     // Metodo para utilizar el primer elemento de la cola
     public NodoCola atiende(){
         NodoCola aux = cabeza;
@@ -63,6 +64,7 @@ public class Cola {
         }
         return cola;
         }
+
     
 //    // Metodo para obtener la tropa
 //    public int getTropa(){ 
