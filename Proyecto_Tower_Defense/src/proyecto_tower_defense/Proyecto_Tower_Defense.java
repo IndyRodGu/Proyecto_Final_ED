@@ -8,7 +8,7 @@ public class Proyecto_Tower_Defense {
 
         int disponibles;
         int ronda = 1;
-
+        
         // Menu principal ------------------------------------------------------
         int op = Integer.parseInt(JOptionPane.showInputDialog
         (null, "Tower Defense\n" + "1- Iniciar juego\n" 
@@ -20,7 +20,11 @@ public class Proyecto_Tower_Defense {
             disponibles = ronda + 4;
             switch (op) {
                 case (1): // Escena 1: se escogen las tropas
-                    Cola colaJug = menuJuego(disponibles);
+                   // Cola colaJug = menuJuego(disponibles);
+                    Cola colaCPU = new Cola ();
+                    //Calculo de disponibles para el CPU.
+                    colaCPU.agregaTropaCPU(disponibles-1); 
+                    
                      // ColaCPU.aleatorio()
                     op = 2; // para "cambiar de escena"
                     ronda++; // Aumenta una ronda para la siguiente
