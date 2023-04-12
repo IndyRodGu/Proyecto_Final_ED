@@ -21,6 +21,7 @@ public class Proyecto_Tower_Defense {
             switch (op) {
                 case (1): // Escena 1: se escogen las tropas
                     Cola colaJug = menuJuego(disponibles);
+                     // ColaCPU.aleatorio()
                     op = 2; // para "cambiar de escena"
                     ronda++; // Aumenta una ronda para la siguiente
                     break;
@@ -65,14 +66,9 @@ public class Proyecto_Tower_Defense {
          */
     }
 
+     // Escena 1 -----------
     public static Cola menuJuego(int disp) { // Cant. tropas disponibles
-        // Escena 1 -----------
-
-        // Tropas disponibles 5: cuantos Arqueros desea
-        // Tropas disponible 3: cuantos Magos
-        // Tropas disponible 3: cuantos Magos
-        // Verificar si es mayor -> Alerta
-        // ColaCPU.aleatorio()
+       
         Cola colaJug = new Cola();
         int arq, cab, mag; // Mostrar cant de miemb escogidos.
 
@@ -161,7 +157,8 @@ public class Proyecto_Tower_Defense {
 
                     break;
             }
-            //colaJug.to_String();
+            //JOptionPane.showMessageDialog(null, colaJug.imprimir());                    
+            System.out.println(colaJug.imprimir());
         }
         return colaJug;
     }

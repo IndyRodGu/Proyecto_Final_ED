@@ -17,7 +17,6 @@ public class Cola {
     // Metodo para agregar las tropas
     public void agregaTropaJugador(int personaje, TipoTropa tipo){ 
         // Recibe la cantidad de tropas, tipo tropa
-        
         // Asignación de id (impares para jugador)
         int id;
         if(cabeza == null)  id = 1;
@@ -27,10 +26,15 @@ public class Cola {
         for(int i = 0; i < personaje; i++){
             Tropa t = new Tropa(tipo, id, 1); // tropa para jugadores
             NodoCola nodo = new NodoCola(t);  // se crea nodo
-            if (cola == null){                // Vierfica la cabeza este vacia   
+            if (cabeza == null){                // Vierfica la cabeza este vacia   
                 cabeza = nodo;                // cabeza y cola son el mismo nodo
-                cola = nodo;
+                cola = cabeza;
             } 
+            else if(cabeza != null && cabeza.getSiguiente()== null){
+                cola.setSiguiente(nodo); //atrás del último es el nuevo nodo
+                cola = nodo;
+                cabeza.setSiguiente(cola);
+            }
             else{
                 cola.setSiguiente(nodo); //atrás del último es el nuevo nodo
                 cola = nodo;   // nuevo nodo es nuevo atrás
@@ -55,18 +59,15 @@ public class Cola {
 //    }
 
     
-    public void to_String() {
-        
+    public String imprimir(){
+        String lista = "";
         NodoCola aux = cabeza;
-        for (int i = 0; i < this.qtyTropa;i++){
-            System.out.println(aux.getTropa().toString());
-            aux = aux.getsiguiente();
+        while(aux!= null){
+            lista += aux.getTropa().toString()+'\n';
+            aux = aux.getSiguiente();
         }
+        return lista;
+    }
         
-    //"Cola{" + "cabeza=" + cabeza + ", cola=" + cola + '}';
-    }
-    
-    
-    
-    }
+}
 

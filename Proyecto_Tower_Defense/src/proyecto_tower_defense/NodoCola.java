@@ -13,7 +13,7 @@ public class NodoCola {
         //this.qtyTropa = qtyTropa;
     }
 
-    public NodoCola getsiguiente() {
+    public NodoCola getSiguiente() {
         return siguiente;
     }
 
