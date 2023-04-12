@@ -43,6 +43,28 @@ public class Cola {
             this.qtyTropa++;
         }
     }
+
+    // Metodo para utilizar el primer elemento de la cola
+    public NodoCola atiende(){
+        NodoCola aux = cabeza;
+        if (cabeza != null) {
+            cabeza = cabeza.getSiguiente();
+            aux.setSiguiente(null);
+            //qtyTropa--;
+        }
+        return aux;
+    }
+    
+    // Metodo para eliminar toda la cola al finalizar el juego
+    public NodoCola eliminar(){
+        if (cabeza != null && cola != null) {
+            cabeza = null;
+            cola = null;
+            qtyTropa = 0;
+        }
+        return cola;
+        }
+
     
 //    // Metodo para obtener la tropa
 //    public int getTropa(){ 
