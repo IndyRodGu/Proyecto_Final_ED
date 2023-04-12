@@ -1,30 +1,127 @@
 /* Clase utilizada para la gestion de la Cola de tropas del CPU*/
 package proyecto_tower_defense;
 
+import java.util.Random;
+
 public class Cola {
-    
+
     private NodoCola cabeza;
     private NodoCola cola;
     private int qtyTropa;
-  
-    
+
     public Cola() {
-            this.cabeza = null;
-            this.cola = null;
-            this.qtyTropa = 0;
-        }
-     
+        this.cabeza = null;
+        this.cola = null;
+        this.qtyTropa = 0;
+    }
+
     // Metodo para agregar las tropas
-    public void agregaTropaJugador(int personaje, TipoTropa tipo){ 
+    public void agregaTropaJugador(int personaje, TipoTropa tipo) {
         // Recibe la cantidad de tropas, tipo tropa
         // Asignación de id (impares para jugador)
         int id;
-        if(cabeza == null)  id = 1;
-        else id = cola.getTropa().getId() + 2;
-        
+        if (cabeza == null) {
+            id = 1;
+        } else {
+            id = cola.getTropa().getId() + 2;
+        }
+
         // Agregar a la cola
-        for(int i = 0; i < personaje; i++){
+        for (int i = 0; i < personaje; i++) {
             Tropa t = new Tropa(tipo, id, 1); // tropa para jugadores
+            NodoCola nodo = new NodoCola(t);  // se crea nodo
+            if (cabeza == null) {                // Vierfica la cabeza este vacia   
+                cabeza = nodo;                // cabeza y cola son el mismo nodo
+                cola = cabeza;
+            } else if (cabeza != null && cabeza.getSiguiente() == null) {
+                cola.setSiguiente(nodo); //atrás del último es el nuevo nodo
+                cola = nodo;
+                cabeza.setSiguiente(cola);
+            } else {
+                cola.setSiguiente(nodo); //atrás del último es el nuevo nodo
+                cola = nodo;   // nuevo nodo es nuevo atrás
+            }
+            id += 2;
+            this.qtyTropa++;
+        }
+    }
+
+    // Método para escoger y agregar aleatoriamente
+    public void agregaTropaCPU(int dispCPU) {
+
+        int id;
+        if (cabeza == null) {
+            id = 0;
+        } else {
+            id = cola.getTropa().getId() + 2;
+        }
+
+        TipoTropa personajes[] = new TipoTropa[3];
+        personajes[0] = TipoTropa.ARQUERO;
+        personajes[1] = TipoTropa.CABALLERO;
+        personajes[2] = TipoTropa.MAGO;
+
+        
+        for (int i = 0; i < dispCPU; i++) {
+            int aleatorio = (int) (Math.random() * 3);
+            Tropa t = new Tropa(personajes[aleatorio], id, 2); // tropa para CPU
+            NodoCola nodo = new NodoCola(t);  // se crea nodo
+            if (cabeza == null) {                // Verifica la cabeza este vacia   
+                cabeza = nodo;                // cabeza y cola son el mismo nodo
+                cola = cabeza;
+            } else if (cabeza != null && cabeza.getSiguiente() == null) {
+                cola.setSiguiente(nodo); //atrás del último es el nuevo nodo
+                cola = nodo;
+                cabeza.setSiguiente(cola);
+            } else {
+                cola.setSiguiente(nodo); //atrás del último es el nuevo nodo
+                cola = nodo;   // nuevo nodo es nuevo atrás
+            }
+            System.out.println(nodo.getTropa().toString());
+            id += 2;
+            this.qtyTropa++;
+        }
+    }
+
+//        TipoTropa[] tiposTropa = TipoTropa.values();
+//        TipoTropa tipo = tiposTropa[aleatorio.nextInt(tiposTropa.length)];
+//        Tropa tropa = new Tropa(tipo);
+//        NodoColaCPU nuevoNodo = new NodoColaCPU(tropa);
+    //Random aleatorio = new Random();
+    /*StringBuffer buffer = new StringBuffer();
+        int id;
+        if(cabeza == null)  id = 0;
+        else id = cola.getTropa().getId() + 2;
+        TipoTropa arq = TipoTropa.ARQUERO;
+        TipoTropa mag = TipoTropa.MAGO;
+        TipoTropa cab = TipoTropa.CABALLERO;
+        arq.toCharArray();
+        mag.toCharArray();
+        cab.toCharArray();
+        
+        TipoTropa [] personajes = new TipoTropa[dispCPU];
+        personajes [1]= arq;
+        personajes [2]= mag;
+        personajes [3]= cab;
+        
+        Random aleatorio = new Random();
+        for (int i =0; i < personajes.length; ) {
+            boolean existe = false;
+            personajes [i] = aleatorio.nextInt(3);
+            
+        }
+        
+        
+        personajes[1]= arq;
+        personajes[2]= mag;
+        personajes[3]= cab;
+     */
+ /* 
+        
+        //Agregar a la cola
+        for(int i = 0; i < dispCPU; i++){
+
+            //Tropa t = new Tropa(persAleat.n(TipoTropa)); // tropa para jugadores
             NodoCola nodo = new NodoCola(t);  // se crea nodo
             if (cabeza == null){                // Vierfica la cabeza este vacia   
                 cabeza = nodo;                // cabeza y cola son el mismo nodo
@@ -41,11 +138,9 @@ public class Cola {
             }
             id+=2;
             this.qtyTropa++;
-        }
-    }
-
+        }8*/
     // Metodo para utilizar el primer elemento de la cola
-    public NodoCola atiende(){
+    public NodoCola atiende() {
         NodoCola aux = cabeza;
         if (cabeza != null) {
             cabeza = cabeza.getSiguiente();
@@ -54,18 +149,7 @@ public class Cola {
         }
         return aux;
     }
-    
-    // Metodo para eliminar toda la cola al finalizar el juego
-    public NodoCola eliminar(){
-        if (cabeza != null && cola != null) {
-            cabeza = null;
-            cola = null;
-            qtyTropa = 0;
-        }
-        return cola;
-        }
 
-    
 //    // Metodo para obtener la tropa
 //    public int getTropa(){ 
 //        if (cabeza == null) {
@@ -79,17 +163,14 @@ public class Cola {
 //        }
 //        return qtyTropa;
 //    }
-
-    
-    public String imprimir(){
+    public String imprimir() {
         String lista = "";
         NodoCola aux = cabeza;
-        while(aux!= null){
-            lista += aux.getTropa().toString()+'\n';
+        while (aux != null) {
+            lista += aux.getTropa().toString() + '\n';
             aux = aux.getSiguiente();
         }
         return lista;
     }
-        
-}
 
+}
