@@ -31,7 +31,7 @@ public class Proyecto_Tower_Defense {
                     break;
 
                 case (2): // Termina 
-                    juego = false;
+                    juego = false;                    
                     break;
 
                 default:
