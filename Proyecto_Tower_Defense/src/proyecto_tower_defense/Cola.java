@@ -61,7 +61,6 @@ public class Cola {
         personajes[1] = TipoTropa.CABALLERO;
         personajes[2] = TipoTropa.MAGO;
 
-        
         for (int i = 0; i < dispCPU; i++) {
             int aleatorio = (int) (Math.random() * 3);
             Tropa t = new Tropa(personajes[aleatorio], id, 2); // tropa para CPU
@@ -83,63 +82,6 @@ public class Cola {
         }
     }
 
-//        TipoTropa[] tiposTropa = TipoTropa.values();
-//        TipoTropa tipo = tiposTropa[aleatorio.nextInt(tiposTropa.length)];
-//        Tropa tropa = new Tropa(tipo);
-//        NodoColaCPU nuevoNodo = new NodoColaCPU(tropa);
-    //Random aleatorio = new Random();
-    /*StringBuffer buffer = new StringBuffer();
-        int id;
-        if(cabeza == null)  id = 0;
-        else id = cola.getTropa().getId() + 2;
-        TipoTropa arq = TipoTropa.ARQUERO;
-        TipoTropa mag = TipoTropa.MAGO;
-        TipoTropa cab = TipoTropa.CABALLERO;
-        arq.toCharArray();
-        mag.toCharArray();
-        cab.toCharArray();
-        
-        TipoTropa [] personajes = new TipoTropa[dispCPU];
-        personajes [1]= arq;
-        personajes [2]= mag;
-        personajes [3]= cab;
-        
-        Random aleatorio = new Random();
-        for (int i =0; i < personajes.length; ) {
-            boolean existe = false;
-            personajes [i] = aleatorio.nextInt(3);
-            
-        }
-        
-        
-        personajes[1]= arq;
-        personajes[2]= mag;
-        personajes[3]= cab;
-     */
- /* 
-        
-        //Agregar a la cola
-        for(int i = 0; i < dispCPU; i++){
-
-            //Tropa t = new Tropa(persAleat.n(TipoTropa)); // tropa para jugadores
-            NodoCola nodo = new NodoCola(t);  // se crea nodo
-            if (cabeza == null){                // Vierfica la cabeza este vacia   
-                cabeza = nodo;                // cabeza y cola son el mismo nodo
-                cola = cabeza;
-            } 
-            else if(cabeza != null && cabeza.getSiguiente()== null){
-                cola.setSiguiente(nodo); //atrás del último es el nuevo nodo
-                cola = nodo;
-                cabeza.setSiguiente(cola);
-            }
-            else{
-                cola.setSiguiente(nodo); //atrás del último es el nuevo nodo
-                cola = nodo;   // nuevo nodo es nuevo atrás
-            }
-            id+=2;
-            this.qtyTropa++;
-        }8*/
-    // Metodo para utilizar el primer elemento de la cola
     public NodoCola atiende() {
         NodoCola aux = cabeza;
         if (cabeza != null) {
