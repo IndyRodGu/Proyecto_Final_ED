@@ -6,6 +6,23 @@ public class Proyecto_Tower_Defense {
 
     public static void main(String[] args) {
 
+        int filas = 5;
+        int columnas = 6;
+        String tablero[][] = new String[filas][columnas];
+        
+        Camino superior = new Camino();
+        Camino inferior = new Camino();
+        
+//        superior.construirCamino(6);
+//        superior.imprimirA();
+//        System.out.println("");
+//        superior.imprimirB();
+//        System.out.println("");
+//        
+//        Tropa t = new Tropa(TipoTropa.ARQUERO,1,1);
+//        superior.ingresaTropaJug(t);
+//        superior.imprimirJug();
+        
         int disponibles;
         int ronda = 1;
         

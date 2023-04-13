@@ -7,12 +7,14 @@ public class NodoCam { // Nodo para los caminos
     Tropa dato;
     NodoCam back;
     NodoCam next;
+    int adoquin;
     
 
-    public NodoCam() {
+    public NodoCam(int ad) {
         this.dato = null;
         this.back = null;
         this.next = null;
+        this.adoquin = ad;
     }
 
     public NodoCam getBack() {
@@ -39,5 +41,11 @@ public class NodoCam { // Nodo para los caminos
         this.next = next;
     }
     
-    
+     public int getAdoquin() {
+        return adoquin;
+    }
+
+    public void setAdoquin(int adoquin) {
+        this.adoquin = adoquin;
+    }
 }
