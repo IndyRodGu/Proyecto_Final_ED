@@ -6,13 +6,12 @@ public class Proyecto_Tower_Defense {
 
     public static void main(String[] args) {
 
-        int filas = 5;
-        int columnas = 6;
-        String tablero[][] = new String[filas][columnas];
-        
+        //Miscelaneos msn= new Miscelaneos();
+        //msn.SelecCaminos();
+        //System.out.println(msn);
         Camino superior = new Camino();
         Camino inferior = new Camino();
-        
+
 //        superior.construirCamino(6);
 //        superior.imprimirA();
 //        System.out.println("");
@@ -22,14 +21,12 @@ public class Proyecto_Tower_Defense {
 //        Tropa t = new Tropa(TipoTropa.ARQUERO,1,1);
 //        superior.ingresaTropaJug(t);
 //        superior.imprimirJug();
-        
         int disponibles;
         int ronda = 1;
-        
+
         // Menu principal ------------------------------------------------------
-        int op = Integer.parseInt(JOptionPane.showInputDialog
-        (null, "Tower Defense\n" + "1- Iniciar juego\n" 
-         + "2- Salir"));
+        int op = Integer.parseInt(JOptionPane.showInputDialog(null, "Tower Defense\n" + "1- Iniciar juego\n"
+                + "2- Salir"));
 
         // Lógica de escenas -------------------------------------
         boolean juego = true; // Mientras el juego esté en curso
@@ -37,18 +34,18 @@ public class Proyecto_Tower_Defense {
             disponibles = ronda + 4;
             switch (op) {
                 case (1): // Escena 1: se escogen las tropas
-                   // Cola colaJug = menuJuego(disponibles);
-                    Cola colaCPU = new Cola ();
+                    // Cola colaJug = menuJuego(disponibles);
+                    Cola colaCPU = new Cola();
                     //Calculo de disponibles para el CPU.
-                    colaCPU.agregaTropaCPU(disponibles-1); 
-                    
-                     // ColaCPU.aleatorio()
+                    colaCPU.agregaTropaCPU(disponibles - 1);
+
+                    // ColaCPU.aleatorio()
                     op = 2; // para "cambiar de escena"
                     ronda++; // Aumenta una ronda para la siguiente
                     break;
 
                 case (2): // Termina 
-                    juego = false;                    
+                    juego = false;
                     break;
 
                 default:
@@ -59,37 +56,11 @@ public class Proyecto_Tower_Defense {
 
         } while (juego);
 
-        //menu();
-        // Cola para el jugador
-        // ColaJug -> [ ] [ ]
-        // Cola para CPU
-//        do{
-//            escena1();
-//            
-//            
-//        }while();
-//        
-        /*
-        
-        // Tablero
-        int filas = 5;
-        int columnas = 6;
-        String tablero[][] = new String[filas][columnas];
-        
-        for(int i = 0; i < filas; i++){
-            for(int j = 0; j < columnas; j++){
-                tablero[i][j]=" 0 ";
-            }
-        }
-        JOptionPane.showMessageDialog(null,tablero); // formato
-        
-        
-         */
     }
 
-     // Escena 1 -----------
+    // Escena 1 -----------
     public static Cola menuJuego(int disp) { // Cant. tropas disponibles
-       
+
         Cola colaJug = new Cola();
         int arq, cab, mag; // Mostrar cant de miemb escogidos.
 
@@ -104,65 +75,62 @@ public class Proyecto_Tower_Defense {
             switch (op) {
 
                 case ("A"):
-                    arq = Integer.parseInt(JOptionPane.showInputDialog
-                    ("Ingrese la cantidad de arqueros deseados\n"));
-                    
+                    arq = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad de arqueros deseados\n"));
+
                     if (arq < disp) {
-                       // agregar los arqueros a la cola**
-                       // System.out.println("arq:" + arq); // PRUEBA
-                       colaJug.agregaTropaJugador(arq, TipoTropa.ARQUERO);
-                       disp = disp - arq; //Resta de disp los miemb ingresados
-                    } else if (arq == disp){
                         // agregar los arqueros a la cola**
                         // System.out.println("arq:" + arq); // PRUEBA
                         colaJug.agregaTropaJugador(arq, TipoTropa.ARQUERO);
-                        disp = disp - arq; 
+                        disp = disp - arq; //Resta de disp los miemb ingresados
+                    } else if (arq == disp) {
+                        // agregar los arqueros a la cola**
+                        // System.out.println("arq:" + arq); // PRUEBA
+                        colaJug.agregaTropaJugador(arq, TipoTropa.ARQUERO);
+                        disp = disp - arq;
                     } else {
                         JOptionPane.showMessageDialog(null,
-                        "Cantidad ingresada supera los disponibles, "
-                        + "intentelo de nuevo");
+                                "Cantidad ingresada supera los disponibles, "
+                                + "intentelo de nuevo");
                     }
-                    
+
                     break;
 
                 case ("C"):
-                    cab = Integer.parseInt(JOptionPane.showInputDialog
-                    ("Ingrese la cantidad de caballeros deseados\n"));
-                    
+                    cab = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad de caballeros deseados\n"));
+
                     if (cab < disp) {
-                       // agregar los arqueros a la cola**
-                       colaJug.agregaTropaJugador(cab, TipoTropa.CABALLERO);
-                       
-                       disp = disp - cab; //Resta de disp los miemb ingresados
-                    } else if (cab == disp){
                         // agregar los arqueros a la cola**
-                       colaJug.agregaTropaJugador(cab, TipoTropa.CABALLERO);
-                        disp = disp - cab; 
-                        
+                        colaJug.agregaTropaJugador(cab, TipoTropa.CABALLERO);
+
+                        disp = disp - cab; //Resta de disp los miemb ingresados
+                    } else if (cab == disp) {
+                        // agregar los arqueros a la cola**
+                        colaJug.agregaTropaJugador(cab, TipoTropa.CABALLERO);
+                        disp = disp - cab;
+
                     } else {
                         JOptionPane.showMessageDialog(null,
-                        "Cantidad ingresada supera los disponibles, "
-                        + "intentelo de nuevo");
+                                "Cantidad ingresada supera los disponibles, "
+                                + "intentelo de nuevo");
                     }
-                    
+
                     break;
 
                 case ("M"):
-                    mag = Integer.parseInt(JOptionPane.showInputDialog
-                    ("Ingrese la cantidad de magos deseados\n"));
+                    mag = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad de magos deseados\n"));
                     if (mag < disp) {
-                       // agregar los arqueros a la cola**
-                       colaJug.agregaTropaJugador(mag, TipoTropa.MAGO);
-                       
-                       disp = disp - mag; //Resta de disp los miemb ingresados
-                    } else if (mag == disp){
                         // agregar los arqueros a la cola**
                         colaJug.agregaTropaJugador(mag, TipoTropa.MAGO);
-                        disp = disp - mag; 
+
+                        disp = disp - mag; //Resta de disp los miemb ingresados
+                    } else if (mag == disp) {
+                        // agregar los arqueros a la cola**
+                        colaJug.agregaTropaJugador(mag, TipoTropa.MAGO);
+                        disp = disp - mag;
                     } else {
                         JOptionPane.showMessageDialog(null,
-                        "Cantidad ingresada supera los disponibles, "
-                        + "intentelo de nuevo");
+                                "Cantidad ingresada supera los disponibles, "
+                                + "intentelo de nuevo");
                     }
                     break;
 
@@ -172,8 +140,7 @@ public class Proyecto_Tower_Defense {
 
                 default:
 
-                    JOptionPane.showMessageDialog
-                    (null, "Ingrese una opcion valida");
+                    JOptionPane.showMessageDialog(null, "Ingrese una opcion valida");
                     //menu();
 
                     break;
@@ -183,5 +150,6 @@ public class Proyecto_Tower_Defense {
         }
         return colaJug;
     }
+    
 
 }
