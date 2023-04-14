@@ -33,6 +33,16 @@ public class Camino {
         }
     }
     
+     // Vaciar camino -----------------------------------------------------------
+    
+    public void vaciarCamino(){ // talvez un restart?
+        NodoCam aux = cabeza;
+        while(aux != null){
+            aux.setDato(null);
+            aux = aux.getNext();
+        }
+    }
+    
     // Imprimir adoquines ------------------------------------------------------
     
     public void imprimirA(){   // Revisa de la cabeza al último
@@ -64,7 +74,7 @@ public class Camino {
         ultimo.setDato(cpu);
     }
 
-    public void imprimirJug(){ // Revisa de la cabeza al último
+    public void imprimirJug(){ // Imprime de la cabeza al último ******
         NodoCam aux = cabeza;
         while(aux != null){
             if(aux.getDato()== null) System.out.println("nulo");
@@ -75,7 +85,7 @@ public class Camino {
     }
     
     
-    // Movimiento en el tablero ------------------------------------------------
+    // Buscar en el tablero ----------------------------------------------------
     
     public int localizar(int id){ // Busca el "adoquin" en que está el jugador
         NodoCam aux = cabeza;                        
@@ -87,43 +97,94 @@ public class Camino {
         return pos;
     } 
      
-     
-     
-    public void avanzaJug(int id){
-        
-        // Primero revisar que el siguiente no esté ocupado.
-        int posActual = localizar(id);
-        
-        // Si está en el último lugar, ataca la torre
-        if (posActual == ultimo.getAdoquin()){
-            // Atacar torre
-            // "Eliminar" personaje de la cola de "en juego"
+    // Avanza el Jugador -------------------------------------------------------
+    
+    public void avanzaJug(Tropa tropa, Torre torreEnemiga){
+        int posActual = localizar(tropa.getId()); // Localizar tropa en camino
+        NodoCam aux = cabeza;                     // Nodo para recorrer
+        while(posActual != aux.getAdoquin()){     // Recorrer hasta encontrar
+            aux = aux.getNext();
         }
-        
-        else{
-            NodoCam aux = cabeza;
-            while(posActual != aux.getAdoquin()){
-                aux = aux.getNext();
+        if(aux.getNext().getDato() != null){
+            Tropa A = aux.getDato();             // Jugador (se puede mover)
+            Tropa B = aux.getNext().getDato();   // CPU (No se mueve) 
+        // ----- A derrota a B
+            if (A.getTipoTropa() == B.getVulnerability()){
+                aux.getNext().setDato(null); // quita siguiente
+                aux.getNext().setDato(A);    // asigna al siguiente
+                aux.setDato(null);           // anterior nulo (cambio de campo)
+                posActual++;                 // cambia de posición
+                // NOTA: Borrar B en lista
             }
-            
-            if(aux.getNext().getDato() != null){
-                // revisar quien muere
-                // Elimina el que que corresponde -> revisa con tropa
+        // ---- B derrota a A
+            else if (B.getTipoTropa() == A.getVulnerability()){
+                aux.setDato(null);          // se borra jugador de camino
+                // NOTA: Borrar A en lista
             }
+        // ---- A == B - se acaban entre sí
             else{
-                // Se mueve al siguiente
-                Tropa p = aux.getDato();
-                aux.getNext().setDato(p);
-                aux.setDato(null);
-            }
-            
+                aux.getNext().setDato(null); // Borra enemigo
+                aux.setDato(null);           // Borra jugador
+                // NOTA: Borrar A y B en lista
+            }      
+        }
+        else{ // Solo se mueve si no hay nada adelante
+            Tropa p = aux.getDato();        // Se copia dato tropa a t
+            aux.getNext().setDato(p);       // Se pega al siguiente nodo
+            aux.setDato(null);              // Actual se vacía
+            posActual++;                    // Se suma posición
+        }
+        // Si ahora está en el último lugar, ataca la torre
+        if (posActual == ultimo.getAdoquin()){
+            torreEnemiga.danio(tropa.getTowerWreckage()); // hace daño
+            ultimo.setDato(null); // quita del tablero
+           // NOTA: Borrar 
         }
     }
+
+    // Movimiento del CPU ------------------------------------------------------   
     
-    
-    
-    public void avanzaCPU(){
-        
+    public void avanzaCPU(Tropa tropa, Torre torreEnemiga){
+        int posActual = localizar(tropa.getId()); // Localizar tropa en camino
+        NodoCam aux = cabeza;                     // Nodo para recorrer
+        while(posActual != aux.getAdoquin()){     // Recorrer hasta encontrar 
+            aux = aux.getNext();
+        }
+        if(aux.getBack().getDato() != null){     // Si adoquin anterior ocupado 
+            Tropa A = aux.getDato();             // CPU (se puede mover)
+            Tropa B = aux.getBack().getDato();   // Jugador (No se mueve) 
+        // ----- A derrota a B
+            if (A.getTipoTropa() == B.getVulnerability()){
+                aux.getBack().setDato(null); // quita anterior
+                aux.getBack().setDato(A);    // asigna cpu a anterior
+                aux.setDato(null);           // se hace nulo (cambio de campo)
+                posActual--;                 // cambia de posición
+                // NOTA: Borrar B en lista
+            }
+        // ---- B derrota a A
+            else if (B.getTipoTropa() == A.getVulnerability()){
+                aux.setDato(null);          // se borra cpu de camino
+                // NOTA: Borrar A en lista
+            }
+        // ---- A == B - se acaban entre sí
+            else{
+                aux.getBack().setDato(null); // Borra jugador
+                aux.setDato(null);           // Borra cpu
+                // NOTA: Borrar A y B en lista
+            }   
+        }
+        else{ // Solo se mueve si no hay nada 'atrás'
+            Tropa t = aux.getDato();        // Se copia dato tropa a t
+            aux.getBack().setDato(t);       // Se pega al nodo anterior
+            aux.setDato(null);              // Actual se vacía
+            posActual--;                    // Se resta posición
+        }
+        // Si ahora está en la cabeza, ataca la torre del jugador
+        if (posActual == ultimo.getAdoquin()){
+            torreEnemiga.danio(tropa.getTowerWreckage()); // hace daño
+            cabeza.setDato(null); // quita del tablero
+           // NOTA: Borrar en lista
+        }
         
     }
     
