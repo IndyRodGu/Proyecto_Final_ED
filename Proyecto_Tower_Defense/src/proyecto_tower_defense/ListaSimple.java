@@ -11,7 +11,7 @@ public class ListaSimple {
     }
 
     // Método para agregar un nuevo nodo al final de la lista
-    public void agregar(Object dato) {
+    public void agregar(Tropa dato) {
         Nodo nuevoNodo = new Nodo(dato);
         if (cabeza == null) {
  // Si la lista está vacía, el nuevo nodo se convierte en la cabeza de la lista
