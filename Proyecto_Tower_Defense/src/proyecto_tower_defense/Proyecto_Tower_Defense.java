@@ -3,14 +3,17 @@ package proyecto_tower_defense;
 import javax.swing.JOptionPane;
 
 public class Proyecto_Tower_Defense {
-
-    public static void main(String[] args) {
-
-        //Miscelaneos msn= new Miscelaneos();
+        // TORRE
+        public static Torre TorreCPU = new Torre();
+        public static Torre TorreJug = new Torre();
+        public static Miscelaneos msn= new Miscelaneos();
         //msn.SelecCaminos();
         //System.out.println(msn);
-        Camino superior = new Camino();
-        Camino inferior = new Camino();
+        public static Camino superior = new Camino();
+        public static Camino inferior = new Camino();
+        
+    public static void main(String[] args) {
+        
 
 //        superior.construirCamino(6);
 //        superior.imprimirA();
@@ -40,14 +43,22 @@ public class Proyecto_Tower_Defense {
                     colaCPU.agregaTropaCPU(disponibles - 1);
 
                     // ColaCPU.aleatorio()
-                    op = 2; // para "cambiar de escena"
+                    op = 3; // para "cambiar de escena"
                     ronda++; // Aumenta una ronda para la siguiente
                     break;
 
                 case (2): // Termina 
+
                     juego = false;
                     break;
-
+                    
+                case (3):
+                    juego();
+                    if (TorreCPU.isDestruido() || TorreJug.isDestruido()) {
+                        op=2;
+                    }
+                    break;
+                    
                 default:
                     JOptionPane.showMessageDialog(null,
                             "Ingrese una opcion valida");
@@ -151,5 +162,8 @@ public class Proyecto_Tower_Defense {
         return colaJug;
     }
     
+        public static void juego() {
+        System.out.println("hola");
+    }
 
 }
