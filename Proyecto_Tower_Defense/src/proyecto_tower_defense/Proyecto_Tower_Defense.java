@@ -58,7 +58,7 @@ public class Proyecto_Tower_Defense {
                         op=2;
                     }
                     break;
-                    
+                 ///desarrolo de loas casos faltantes    
                 default:
                     JOptionPane.showMessageDialog(null,
                             "Ingrese una opcion valida");

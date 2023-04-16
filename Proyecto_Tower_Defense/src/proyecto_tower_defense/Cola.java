@@ -92,19 +92,6 @@ public class Cola {
         return aux;
     }
 
-//    // Metodo para obtener la tropa
-//    public int getTropa(){ 
-//        if (cabeza == null) {
-//            System.out.println("Seleccione una tropa");
-//        }
-//        
-//        int qtyTropa = cabeza.qtyTropa; // Devuelve la cantidad de tropas en la
-//        cabeza = cabeza.getsiguiente(); // cabeza y se mueve al siguiente nodo
-//        if (cabeza == null) {
-//            cola = null;
-//        }
-//        return qtyTropa;
-//    }
     public String imprimir() {
         String lista = "";
         Nodo aux = cabeza;
