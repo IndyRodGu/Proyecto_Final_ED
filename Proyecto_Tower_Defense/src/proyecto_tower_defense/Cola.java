@@ -5,8 +5,8 @@ import java.util.Random;
 
 public class Cola {
 
-    private NodoCola cabeza;
-    private NodoCola cola;
+    private Nodo cabeza;
+    private Nodo cola;
     private int qtyTropa;
 
     public Cola() {
@@ -29,7 +29,7 @@ public class Cola {
         // Agregar a la cola
         for (int i = 0; i < personaje; i++) {
             Tropa t = new Tropa(tipo, id, 1); // tropa para jugadores
-            NodoCola nodo = new NodoCola(t);  // se crea nodo
+            Nodo nodo = new Nodo(t);  // se crea nodo
             if (cabeza == null) {                // Vierfica la cabeza este vacia   
                 cabeza = nodo;                // cabeza y cola son el mismo nodo
                 cola = cabeza;
@@ -64,7 +64,7 @@ public class Cola {
         for (int i = 0; i < dispCPU; i++) {
             int aleatorio = (int) (Math.random() * 3);
             Tropa t = new Tropa(personajes[aleatorio], id, 2); // tropa para CPU
-            NodoCola nodo = new NodoCola(t);  // se crea nodo
+            Nodo nodo = new Nodo(t);  // se crea nodo
             if (cabeza == null) {                // Verifica la cabeza este vacia   
                 cabeza = nodo;                // cabeza y cola son el mismo nodo
                 cola = cabeza;
@@ -82,8 +82,8 @@ public class Cola {
         }
     }
 
-    public NodoCola atiende() {
-        NodoCola aux = cabeza;
+    public Nodo atiende() {
+        Nodo aux = cabeza;
         if (cabeza != null) {
             cabeza = cabeza.getSiguiente();
             aux.setSiguiente(null);
@@ -107,7 +107,7 @@ public class Cola {
 //    }
     public String imprimir() {
         String lista = "";
-        NodoCola aux = cabeza;
+        Nodo aux = cabeza;
         while (aux != null) {
             lista += aux.getTropa().toString() + '\n';
             aux = aux.getSiguiente();
