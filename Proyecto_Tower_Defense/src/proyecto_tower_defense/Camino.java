@@ -1,6 +1,7 @@
 
 package proyecto_tower_defense;
 
+import java.util.Random;
 
 public class Camino {
     
@@ -187,6 +188,5 @@ public class Camino {
         }
         
     }
-    
     
 }

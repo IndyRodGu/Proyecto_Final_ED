@@ -1,5 +1,6 @@
 package proyecto_tower_defense;
 
+import java.util.Random;
 import javax.swing.JOptionPane;
 
 public class Miscelaneos {
@@ -36,7 +37,16 @@ public class Miscelaneos {
 
     public void SelecCaminos(int disp) {
         //   Proyecto_Tower_Defense disp = new Proyecto_Tower_Defense();
-
+        int tropaTotal = //Agregar total tropas del cpu
+        // Genera un numero aleatorio entre 0 y el total de tropas CPU
+        int tropasCaminoSup = new Random().nextInt(tropaTotal +1);
+        int tropasCaminoInf = tropaTotal - tropasCaminoSup;
+        if (tropasCaminoSup > tropaTotal *0.75) { //No + 75% Tropas en 1 camino
+            tropasCaminoInf = tropaTotal - tropasCaminoSup;
+        }
+        System.out.println("Tropas en el camino Superior: "+tropasCaminoSup + ""
+                + "Tropas Camino Inferior");
+           
         for (int i = 0; i < disp; i++) {
             int camino = Integer.parseInt(JOptionPane.showInputDialog("Elija su camino \n"
                     + "1- Arriba \n" + "2- Abajo"));
@@ -53,6 +63,26 @@ public class Miscelaneos {
             }
         }
     }
+    
+    //Seleccionar el Camino 
+    public void elegirCaminoCPU(){
+        int tropaTotal = ; // Cantidad total de tropas del CPU
+         //Número aleatorio entre 0 y totalTropas
+        int tropasCaminoSuperior = new Random().nextInt(tropaTotal + 1);
+        int tropasCaminoInferior = tropaTotal - tropasCaminoSuperior;
+        if (tropasCaminoSuperior > tropaTotal * 0.75) {
+            // Restringe el número de tropas al 75% del total x camino
+            tropasCaminoSuperior = (int) (tropaTotal * 0.75); 
+            tropasCaminoInferior = tropaTotal - tropasCaminoSuperior;
+        }
+        System.out.println("El CPU envía " + tropasCaminoSuperior + " tropas por el camino superior y " + tropasCaminoInferior + " tropas por el camino inferior.");
 
+        int caminoCPU = new Random().nextInt(2); // Generar un número aleatorio entre 0 y 1
+        if (caminoCPU == 0) {
+            System.out.println("El CPU ha elegido el camino superior.");
+        } else {
+            System.out.println("El CPU ha elegido el camino inferior.");
+    }
+    }
 
 }
