@@ -27,12 +27,12 @@ public class ListaSimple {
     }
 
     // Método para extraer y eliminar el primer nodo de la lista
-    public Object extraer() {
+    public Tropa extraer() {
         if (cabeza == null) {
     // Si la lista está vacía, devolvemos null
             return null;
         }
-        Object valor = cabeza.getDato();
+        Tropa valor = cabeza.getTropa();
         cabeza = cabeza.getSiguiente();
         return valor;
     }
