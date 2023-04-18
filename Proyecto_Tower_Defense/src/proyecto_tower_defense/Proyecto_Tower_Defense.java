@@ -15,6 +15,7 @@ public class Proyecto_Tower_Defense {
         Cola colaJug = new Cola();  // Se crea cola para jugadores
         Cola colaCPU = new Cola();  // Se crea cola para cpu 
         Miscelaneos misc = new Miscelaneos();
+        int contador = 0;
         
         // Menu principal ------------------------------------------------------
         boolean juego = true;       // Mientras el juego esté en curso
@@ -32,6 +33,7 @@ public class Proyecto_Tower_Defense {
                     colaJug = menuJuego(disponibles);        // Cola jugadores
                     colaCPU.agregaTropaCPU(disponibles - 1); // Agrega tropas
                    // misc.elegirCaminoCPU(colaCPU.)// Asigna caminos
+                    contador = 0;
                     op = 3;                                  // 3 = juego
                     ronda++;                                 // Agrega ronda
                     break;
@@ -44,6 +46,7 @@ public class Proyecto_Tower_Defense {
                 // ------------------ Escena 3: Desarrollo del juego
                 case (3):
                     op = juego(colaJug, colaCPU); // Presenta juego                           
+                    contador ++;
                     break;
                     
                 // ----------------- Escena 4: Gana Jugador 
@@ -163,7 +166,7 @@ public class Proyecto_Tower_Defense {
     
     // Juego principal----------------------------------------------------------
     
-    public static int juego(Cola jugador, Cola cpu) { 
+    public static int juego(Cola jugador, Cola cpu, int contador) { 
         // -------------------------------- Variables
         // Asignación de colas
         Cola colaJug = jugador;           // Se toman las colas creadas
@@ -177,9 +180,16 @@ public class Proyecto_Tower_Defense {
         // Tablero de juego
         // **
         System.out.println("tablero");
-        
+ 
         // --------------------------------------- Desarrollo del juego
-        
+        ListaSimple todosJug = new ListaSimple ();
+        if (contador % 2 == 0) { // Si es par entra (JUGADORES) al juego
+            Nodo aux = colaJug.atiende();
+            todosJug.agregar(aux.getTropa());
+        } else { // Si es impar entra (CPU) al juego
+            Nodo aux = colaCPU.atiende();
+            todosJug.agregar(aux.getTropa());
+        }
         
         // ------------------------------------------- Verificación de escena
         int resultado; // Para saber resultado
