@@ -8,4 +8,5 @@ Una vez que alguna de las dos torres se queda sin puntos (10puntos) termina el j
 Integrantes:
 Melany Elizondo
 Jenny Gong
+Aaron Guzman
 Indira Rodriguez
