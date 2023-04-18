@@ -190,10 +190,5 @@ public class Proyecto_Tower_Defense {
         return resultado;
         
     }
-
-    
-    //public static Miscelaneos msn= new Miscelaneos();
-    //msn.SelecCaminos();
-    //System.out.println(msn);
     
 }
