@@ -14,6 +14,7 @@ public class Proyecto_Tower_Defense {
         int disponibles;            // Cantidad de tropas disponibles
         Cola colaJug = new Cola();  // Se crea cola para jugadores
         Cola colaCPU = new Cola();  // Se crea cola para cpu 
+        Miscelaneos misc = new Miscelaneos();
         
         // Menu principal ------------------------------------------------------
         boolean juego = true;       // Mientras el juego esté en curso
@@ -30,7 +31,7 @@ public class Proyecto_Tower_Defense {
                     // 1. Creación de colas
                     colaJug = menuJuego(disponibles);        // Cola jugadores
                     colaCPU.agregaTropaCPU(disponibles - 1); // Agrega tropas
-                    // ColaCPU.aleatorio()                   // Asigna caminos
+                   // misc.elegirCaminoCPU(colaCPU.)// Asigna caminos
                     op = 3;                                  // 3 = juego
                     ronda++;                                 // Agrega ronda
                     break;
