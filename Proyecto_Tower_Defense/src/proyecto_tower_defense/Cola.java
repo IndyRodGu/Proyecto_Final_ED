@@ -41,6 +41,7 @@ public class Cola {
                 cola.setSiguiente(nodo); //atrás del último es el nuevo nodo
                 cola = nodo;   // nuevo nodo es nuevo atrás
             }
+            nodo.getTropa().setId(id);
             id += 2;
             this.qtyTropa++;
         }
@@ -77,6 +78,7 @@ public class Cola {
                 cola = nodo;   // nuevo nodo es nuevo atrás
             }
             System.out.println(nodo.getTropa().toString());
+            nodo.getTropa().setId(id);
             id += 2;
             this.qtyTropa++;
         }
@@ -91,15 +93,20 @@ public class Cola {
         }
         return aux;
     }
-
-    public String imprimir() {
-        String lista = "";
+    
+    public String verLista() {
         Nodo aux = cabeza;
+        String s = "";
+
         while (aux != null) {
-            lista += aux.getTropa().toString() + '\n';
+            if (aux.getTropa().getId() >= 6 && aux.getTropa().getPlayer() == 2) {
+                s += "--------";
+            } else {
+                s += aux.getTropa().getTipoTropa() + "\n";
+            }
             aux = aux.getSiguiente();
         }
-        return lista;
+        return s;
     }
     
     //Seleccionar el Camino 
@@ -113,8 +120,7 @@ public class Cola {
             tropasCaminoSuperior = (int) (tropaTotal * 0.75); 
             tropasCaminoInferior = tropaTotal - tropasCaminoSuperior;
         }
-        System.out.println("El CPU envía " + tropasCaminoSuperior + " tropas por el camino superior y " + tropasCaminoInferior + " tropas por el camino inferior.");
-
+        System.out.println("El CPU envía " + tropasCaminoSuperior + " tropas por el camino superior y " + tropasCaminoInferior + " tropas por el camino inferior.")
         int caminoCPU = new Random().nextInt(2); // Generar un número aleatorio entre 0 y 1
         if (caminoCPU == 0) {
             System.out.println("El CPU ha elegido el camino superior.");
@@ -122,4 +128,5 @@ public class Cola {
             System.out.println("El CPU ha elegido el camino inferior.");
     }
     }
+
 }
