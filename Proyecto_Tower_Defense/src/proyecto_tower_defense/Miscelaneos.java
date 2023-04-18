@@ -35,18 +35,7 @@ public class Miscelaneos {
 
     }
 
-    public void SelecCaminos(int disp) {
-        //   Proyecto_Tower_Defense disp = new Proyecto_Tower_Defense();
-        int tropaTotal = //Agregar total tropas del cpu
-        // Genera un numero aleatorio entre 0 y el total de tropas CPU
-        int tropasCaminoSup = new Random().nextInt(tropaTotal +1);
-        int tropasCaminoInf = tropaTotal - tropasCaminoSup;
-        if (tropasCaminoSup > tropaTotal *0.75) { //No + 75% Tropas en 1 camino
-            tropasCaminoInf = tropaTotal - tropasCaminoSup;
-        }
-        System.out.println("Tropas en el camino Superior: "+tropasCaminoSup + ""
-                + "Tropas Camino Inferior");
-           
+    public void SelecCaminosJug(int disp) { 
         for (int i = 0; i < disp; i++) {
             int camino = Integer.parseInt(JOptionPane.showInputDialog("Elija su camino \n"
                     + "1- Arriba \n" + "2- Abajo"));
@@ -64,8 +53,8 @@ public class Miscelaneos {
         }
     }
     
-    //Seleccionar el Camino 
-    public void elegirCaminoCPU(){
+    /*//Seleccionar el Camino 
+    public void SelecCaminoCPU(Cola CPU){
         int tropaTotal = ; // Cantidad total de tropas del CPU
          //Número aleatorio entre 0 y totalTropas
         int tropasCaminoSuperior = new Random().nextInt(tropaTotal + 1);
@@ -82,7 +71,6 @@ public class Miscelaneos {
             System.out.println("El CPU ha elegido el camino superior.");
         } else {
             System.out.println("El CPU ha elegido el camino inferior.");
-    }
+    }*/
     }
 
-}
