@@ -4,6 +4,10 @@ import javax.swing.JOptionPane;
 
 public class Proyecto_Tower_Defense {
        
+    // Construcción de torres
+        public static Torre TorreCPU = new Torre();     // Torre CPU
+        public static Torre TorreJug = new Torre();     // Torre Jugador
+        
     public static void main(String[] args) {
         // Variables -----------------------------------------------------------
         int ronda = 1;              // Número de ronda inicial
@@ -38,7 +42,7 @@ public class Proyecto_Tower_Defense {
                 
                 // ------------------ Escena 3: Desarrollo del juego
                 case (3):
-                    op = juego();                           // Presenta juego                           
+                    op = juego(colaJug, colaCPU); // Presenta juego                           
                     break;
                     
                 // ----------------- Escena 4: Gana Jugador 
@@ -61,7 +65,6 @@ public class Proyecto_Tower_Defense {
             }
         } while (juego); // Mientras el juego sea vigente
     }
-
     
     // Selección de Tropas -----------------------------------------------------
 
@@ -164,9 +167,7 @@ public class Proyecto_Tower_Defense {
         // Asignación de colas
         Cola colaJug = jugador;           // Se toman las colas creadas
         Cola colaCPU = cpu;               
-        // Construcción de torres
-        Torre TorreCPU = new Torre();     // Torre CPU
-        Torre TorreJug = new Torre();     // Torre Jugador
+        
         // Construcción de caminos
         Camino superior = new Camino();   // Camino superior
         Camino inferior = new Camino();   // Camino inferior
@@ -177,7 +178,6 @@ public class Proyecto_Tower_Defense {
         System.out.println("tablero");
         
         // --------------------------------------- Desarrollo del juego
-        
         
         
         // ------------------------------------------- Verificación de escena
