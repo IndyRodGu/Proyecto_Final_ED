@@ -41,6 +41,7 @@ public class Cola {
                 cola.setSiguiente(nodo); //atrás del último es el nuevo nodo
                 cola = nodo;   // nuevo nodo es nuevo atrás
             }
+            nodo.getTropa().setId(id);
             id += 2;
             this.qtyTropa++;
         }
@@ -77,6 +78,7 @@ public class Cola {
                 cola = nodo;   // nuevo nodo es nuevo atrás
             }
             System.out.println(nodo.getTropa().toString());
+            nodo.getTropa().setId(id);
             id += 2;
             this.qtyTropa++;
         }
@@ -100,6 +102,21 @@ public class Cola {
             aux = aux.getSiguiente();
         }
         return lista;
+    }
+
+    public String verLista() {
+        Nodo aux = cabeza;
+        String s = "";
+
+        while (aux != null) {
+            if (aux.getTropa().getId() >= 6 && aux.getTropa().getPlayer() == 2) {
+                s += "--------";
+            } else {
+                s += aux.getTropa().getTipoTropa() + "\n";
+            }
+            aux = aux.getSiguiente();
+        }
+        return s;
     }
 
 }
