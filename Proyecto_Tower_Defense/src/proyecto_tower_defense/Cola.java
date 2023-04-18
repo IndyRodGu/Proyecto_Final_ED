@@ -93,17 +93,7 @@ public class Cola {
         }
         return aux;
     }
-
-    public String imprimir() {
-        String lista = "";
-        Nodo aux = cabeza;
-        while (aux != null) {
-            lista += aux.getTropa().toString() + '\n';
-            aux = aux.getSiguiente();
-        }
-        return lista;
-    }
-
+    
     public String verLista() {
         Nodo aux = cabeza;
         String s = "";
@@ -117,6 +107,26 @@ public class Cola {
             aux = aux.getSiguiente();
         }
         return s;
+    }
+    
+    //Seleccionar el Camino 
+    public void SelecCaminoCPU(Cola CPU){
+        int tropaTotal = qtyTropa; // Cantidad total de tropas del CPU
+         //Número aleatorio entre 0 y totalTropas
+        int tropasCaminoSuperior = new Random().nextInt(tropaTotal + 1);
+        int tropasCaminoInferior = tropaTotal - tropasCaminoSuperior;
+        if (tropasCaminoSuperior > tropaTotal * 0.75) {
+            // Restringe el número de tropas al 75% del total x camino
+            tropasCaminoSuperior = (int) (tropaTotal * 0.75); 
+            tropasCaminoInferior = tropaTotal - tropasCaminoSuperior;
+        }
+        System.out.println("El CPU envía " + tropasCaminoSuperior + " tropas por el camino superior y " + tropasCaminoInferior + " tropas por el camino inferior.")
+        int caminoCPU = new Random().nextInt(2); // Generar un número aleatorio entre 0 y 1
+        if (caminoCPU == 0) {
+            System.out.println("El CPU ha elegido el camino superior.");
+        } else {
+            System.out.println("El CPU ha elegido el camino inferior.");
+    }
     }
 
 }

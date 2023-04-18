@@ -12,7 +12,7 @@ public class Tropa {
     private ImageIcon image; /// Agrega las imagenes de las tropas
     private int id;     // identificador
     private int player; //1 = jugador y 2 = cpu (impares jugador, pares CPU)
-    
+    private int camino; // Camino 1 Superior 2 Inferior
     
 // Constructor -----------------------------------------------------------------
     
@@ -52,6 +52,9 @@ public class Tropa {
                 break;
         }
     }
+    public int getCamino() {
+        return camino;
+    }
     
     public TipoTropa getTipoTropa() {
         return TipoTropa;
@@ -81,6 +84,10 @@ public class Tropa {
         return player;
     }
 
+    public void setCamino(int camino) {
+        this.camino = camino;
+    }
+    
     public void setPlayer(int player) {
         this.player = player;
     }
