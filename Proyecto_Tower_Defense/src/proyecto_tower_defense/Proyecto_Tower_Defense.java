@@ -48,14 +48,29 @@ public class Proyecto_Tower_Defense {
                     
                 // ----------------- Escena 4: Gana Jugador 
                 case (4):
+                    JOptionPane.showMessageDialog(null, "¡Ganaste!.");
                     break;
                     
                 // ----------------- Escena 5: Gana CPU (Jugador pierde)
                 case (5):
+                    JOptionPane.showMessageDialog(null, "Perdiste. Mejor suerte la próxima.");
                     break;
                     
                 // ----------------- Escena 6: Se acabó el tiempo (Timeout) 
                 case (6):
+                     //if ( >= 300000) {
+                int opcion = Integer.parseInt(JOptionPane.showInputDialog("Se acabó el tiempo. ¿Qué desea hacer?\n\n"
+                        + "1. Reintentar\n"
+                        + "2. Terminar el juego"));
+                
+                if (opcion == 1) {
+                    //tiempo = 0;
+                    ronda=1;
+                    op = 1;//se regresa al menu del juego 
+                } else {
+                    op = 6;
+                }
+                     JOptionPane.showMessageDialog(null, "Perdiste por timeout.");
                     break;
                     
                 // ----------------- Escena 7: SE acaba el tiempo (Timeout)
