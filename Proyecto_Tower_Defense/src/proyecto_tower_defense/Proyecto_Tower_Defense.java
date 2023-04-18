@@ -61,7 +61,6 @@ public class Proyecto_Tower_Defense {
                     
                 // ----------------- Escena 6: Se acabó el tiempo (Timeout) 
                 case (6):
-<<<<<<< Updated upstream
                      //if ( >= 300000) {
                     //if ( >= 300000) {
                 int opcion = Integer.parseInt(JOptionPane.showInputDialog("Se acabó el tiempo. ¿Qué desea hacer?\n\n"
