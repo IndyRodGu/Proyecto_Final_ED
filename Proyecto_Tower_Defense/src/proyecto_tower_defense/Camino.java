@@ -10,10 +10,11 @@ public class Camino {
     NodoCam ultimo;
     int cuenta;
     
-    public Camino() {
+    public Camino(int adoquines) {
         this.cabeza = null;
         this.ultimo = null;
         this.cuenta = 0;
+        this.construirCamino(adoquines);
     }
     
     // Construir camino --------------------------------------------------------
@@ -34,7 +35,7 @@ public class Camino {
         }
     }
     
-     // Vaciar camino -----------------------------------------------------------
+    // Vaciar camino -----------------------------------------------------------
     
     public void vaciarCamino(){ // talvez un restart?
         NodoCam aux = cabeza;
@@ -44,63 +45,52 @@ public class Camino {
         }
     }
     
-    // Imprimir adoquines ------------------------------------------------------
-    
-    public void imprimirA(){   // Revisa de la cabeza al último
-        NodoCam aux = cabeza;
-        while(aux != null){
-            System.out.print(aux.getAdoquin()+" ");
-            aux = aux.getNext();
-        }
-        System.out.println("");
-    }
-    
-    public void imprimirB(){   // Revisa del último a la cabeza
-        NodoCam aux = ultimo;
-        while(aux != null){
-            System.out.print(aux.getAdoquin()+" ");
-            aux = aux.getBack();
-        }
-        System.out.println("");
-    }
-    
-    
     // Ingresan jugadores al tablero -------------------------------------------
     
-    public void ingresaTropaJug(Tropa jug){
-        cabeza.setDato(jug);
+    public void ingresa(Tropa t){
+        if(t.getPlayer()== 1) cabeza.setDato(t);
+        else  ultimo.setDato(t);
     }
     
-    public void ingresaTropaCPU(Tropa cpu){
-        ultimo.setDato(cpu);
-    }
-
-    public void imprimirJug(){ // Imprime de la cabeza al último ******
-        NodoCam aux = cabeza;
-        while(aux != null){
-            if(aux.getDato()== null) System.out.println("nulo");
-            else System.out.println(aux.getDato().toString()+" ");
-            aux = aux.getNext();
-        }
-        System.out.println("");
-    }
     
+    // Jugadores avanzan en tablero --------------------------------------------
+    
+    public void avanza(Tropa t, Torre enem){
+        if(t.getPlayer()== 1) avanzaJug(t,enem);
+        else avanzaCPU(t, enem);
+    }
+   
     
     // Buscar en el tablero ----------------------------------------------------
     
     public int localizar(int id){ // Busca el "adoquin" en que está el jugador
         NodoCam aux = cabeza;                        
         // Evalua si id del jugador es igual
-        while(aux.getDato() == null || aux.getDato().getId() != id){ 
+        while(aux.getNext() != null && (aux.getDato() == null || aux.getDato().getId() != id) ){ 
             aux = aux.getNext();
         }
         int pos = aux.getAdoquin();         // indica la posición (adoquin)
         return pos;
     } 
-     
+    
+    
+    // Buscar en el tablero ----------------------------------------------------
+    
+    public boolean existe (int id){ // Busca el "adoquin" en que está el jugador
+        NodoCam aux = cabeza;                        
+        // Evalua si id del jugador es igual
+        while(aux != null){
+            if (aux.getDato().getId() == id) return true;
+            aux = aux.getNext();
+        }
+        return false;
+    }
+    
+    
+    
     // Avanza el Jugador -------------------------------------------------------
     
-    public void avanzaJug(Tropa tropa, Torre torreEnemiga){
+    private void avanzaJug(Tropa tropa, Torre torreEnemiga){
         int posActual = localizar(tropa.getId()); // Localizar tropa en camino
         NodoCam aux = cabeza;                     // Nodo para recorrer
         while(posActual != aux.getAdoquin()){     // Recorrer hasta encontrar
@@ -143,9 +133,10 @@ public class Camino {
         }
     }
 
+    
     // Movimiento del CPU ------------------------------------------------------   
     
-    public void avanzaCPU(Tropa tropa, Torre torreEnemiga){
+    private void avanzaCPU(Tropa tropa, Torre torreEnemiga){
         int posActual = localizar(tropa.getId()); // Localizar tropa en camino
         NodoCam aux = cabeza;                     // Nodo para recorrer
         while(posActual != aux.getAdoquin()){     // Recorrer hasta encontrar 
@@ -188,5 +179,45 @@ public class Camino {
         }
         
     }
+    
+    
+    
+    /*
+    
+        // Imprimir adoquines ------------------------------------------------------
+    
+    public void imprimirA(){   // Revisa de la cabeza al último
+        NodoCam aux = cabeza;
+        while(aux != null){
+            System.out.print(aux.getAdoquin()+" ");
+            aux = aux.getNext();
+        }
+        System.out.println("");
+    }
+    
+    public void imprimirB(){   // Revisa del último a la cabeza
+        NodoCam aux = ultimo;
+        while(aux != null){
+            System.out.print(aux.getAdoquin()+" ");
+            aux = aux.getBack();
+        }
+        System.out.println("");
+    }
+    
+    
+    public void imprimirJug(){ // Imprime de la cabeza al último ******
+        NodoCam aux = cabeza;
+        while(aux != null){
+            if(aux.getDato()== null) System.out.println("nulo");
+            else System.out.println(aux.getDato().toString()+" ");
+            aux = aux.getNext();
+        }
+        System.out.println("");
+    }
+    
+    
+    
+    */
+    
     
 }

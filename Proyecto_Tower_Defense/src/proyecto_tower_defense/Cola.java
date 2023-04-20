@@ -16,6 +16,13 @@ public class Cola {
         this.qtyTropa = 0;
     }
 
+    // Para definir si la cola está vacía
+    public boolean vacia(){
+        if (cabeza == null) return true;
+        else return false;
+    }
+    
+    
     // Metodo para agregar las tropas
     public void agregaTropaJugador(int personaje, TipoTropa tipo) {
         // Recibe la cantidad de tropas, tipo tropa
@@ -112,7 +119,7 @@ public class Cola {
     
     // CPU Selecciona el Camino ( Envia no + 75% de las tropas x camino)
     public void SelecCaminoCPU(){
-        //Número aleatorio entre 0 y el total de Tropas
+        // Número aleatorio entre 0 y el total de Tropas
         int tropCamSuperior = new Random().nextInt(qtyTropa + 1);
         int tropCamInferior = qtyTropa - tropCamSuperior;
         if (tropCamSuperior > qtyTropa * 0.75) {
@@ -122,6 +129,9 @@ public class Cola {
         }
         System.out.println("Tropas CPU: \nCamino Superior" + tropCamSuperior + ""
                 + " y Camino Inferior " + tropCamInferior);
+        
+        
+        //Nodo aux = 
         int caminoCPU = new Random().nextInt(2); // Generar un número aleatorio entre 0 y 1
         if (caminoCPU == 0) {
             System.out.println("Camino superior elegido");
@@ -134,7 +144,8 @@ public class Cola {
     public void SelecCaminosJug(int disp) { 
         for (int i = 0; i < disp; i++) {
             int camino = Integer.parseInt(JOptionPane.showInputDialog(""
-                    + "Seleccione un camino\n 1- Camino Superior "
+                    + "Seleccione un camino\n "
+                    + "1- Camino Superior "
                     + "\n2- Camino Inferior"));
             switch (camino) {
                 case 1:
