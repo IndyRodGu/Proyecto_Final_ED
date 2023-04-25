@@ -122,9 +122,10 @@ public class Cola {
         // Número aleatorio entre 0 y el total de Tropas
         int tropCamSuperior = new Random().nextInt(qtyTropa + 1);
         int tropCamInferior = qtyTropa - tropCamSuperior;
-        if (tropCamSuperior > qtyTropa * 0.75) {
+        int calculo = (int) Math.floor((qtyTropa * 0.75)); //Redondeo del calculo
+        if (tropCamSuperior > calculo) {
             // Restringe el número de tropas al 75% del total x camino
-            tropCamSuperior = (int) (qtyTropa * 0.75); 
+            tropCamSuperior = calculo; 
             tropCamInferior = qtyTropa - tropCamSuperior;
         }
         System.out.println("Tropas CPU: \nCamino Superior" + tropCamSuperior + ""
