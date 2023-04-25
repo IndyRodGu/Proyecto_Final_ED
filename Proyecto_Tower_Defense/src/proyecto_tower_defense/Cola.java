@@ -141,21 +141,25 @@ public class Cola {
     }
     
     // // Jugador selecciona el Camino por el que envia sus tropas
-    public void SelecCaminosJug(int disp) { 
-        for (int i = 0; i < disp; i++) {
+    public void SelecCaminosJug() {
+        boolean selecionado = false;
+        while(selecionado == false) {
             int camino = Integer.parseInt(JOptionPane.showInputDialog(""
                     + "Seleccione un camino\n "
                     + "1- Camino Superior "
                     + "\n2- Camino Inferior"));
             switch (camino) {
                 case 1:
+                    cola.getTropa().setCamino(camino);
                     // Camino superior
-                    
                     System.out.println("Camino Superior");
+                    selecionado = true;
                     break;
                 case 2:
+                    cola.getTropa().setCamino(camino);
                     // Camino inferior
                     System.out.println("Camino Inferior");
+                    selecionado = true;
                     break;
                     // Otras entradas
                 default:
