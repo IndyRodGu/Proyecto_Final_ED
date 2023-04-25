@@ -30,12 +30,13 @@ public class Proyecto_Tower_Defense {
                 case (1): 
                     // 1. Creación de colas
                     colaJug = menuJuego(disponibles);        // Cola jugadores
-                    colaCPU.agregaTropaCPU(disponibles - 1); // Agrega tropas
-                    colaCPU.SelecCaminoCPU();
-                    System.out.println(colaCPU.verLista());
-                   // Asignar caminos
+//                    colaCPU.agregaTropaCPU(disponibles - 1); // Agrega tropas
+//                    colaCPU.SelecCaminoCPU();
+//                    System.out.println(colaCPU.verLista());
+//                   // Asignar caminos
+                    System.out.println(colaJug.verLista());
                     contador = 0;
-                    op = 3;                                  // 3 = juego
+                    op = 2;                                  // 3 = juego
                     ronda++;                                 // Agrega ronda
                     break;
 
@@ -109,16 +110,14 @@ public class Proyecto_Tower_Defense {
                 case ("A"):
                     arq = Integer.parseInt(JOptionPane.showInputDialog
                         ("Ingrese la cantidad de arqueros deseados\n"));
-                    if (arq < disp) {      // Sobran disponibles
+                    if (arq <= disp) {      // Sobran disponibles
                         // agregar los arqueros a la cola**
-                        colaJug.agregaTropaJugador(arq, TipoTropa.ARQUERO);
-                        disp = disp - arq; //Resta de disp los miemb ingresados
+                        for (int i = 0; i < arq; i++){
+                        colaJug.agregaTropaJugador(1, TipoTropa.ARQUERO);
+                        colaJug.SelecCaminosJug();
                     } 
-                    else if (arq == disp){ // Igual a disponibles
-                        // agregar los arqueros a la cola**
-                        colaJug.agregaTropaJugador(arq, TipoTropa.ARQUERO);
-                        disp = disp - arq; // Resta a disp el num arqueros
-                    } 
+                   disp = disp - arq; //Resta de disp los miemb ingresados
+                   }
                     else {                 // Más que disponibles
                         JOptionPane.showMessageDialog(null,
                                 "Cantidad ingresada supera los disponibles, "
@@ -129,17 +128,15 @@ public class Proyecto_Tower_Defense {
                 case ("C"):
                     cab = Integer.parseInt(JOptionPane.showInputDialog
                         ("Ingrese la cantidad de caballeros deseados\n"));
-                    if (cab < disp) {       // Sobran disponibles
+                    if (cab <= disp) {       // Sobran disponibles
                         // agregar los arqueros a la cola**
-                        colaJug.agregaTropaJugador(cab, TipoTropa.CABALLERO);
-                        disp = disp - cab; //Resta de disp los miemb ingresados
+                       for (int i = 0; i < cab; i++){
+                        colaJug.agregaTropaJugador(1, TipoTropa.CABALLERO);
+                        colaJug.SelecCaminosJug();
                     } 
-                    else if (cab == disp) { // Igual a disponibles
-                        // agregar los arqueros a la cola**
-                        colaJug.agregaTropaJugador(cab, TipoTropa.CABALLERO);
-                        disp = disp - cab; // Resta todo
-
-                    } else {                // Más que disponibles
+                   disp = disp - cab; //Resta de disp los miemb ingresados
+                   }
+                    else {                // Más que disponibles
                         JOptionPane.showMessageDialog(null,
                                 "Cantidad ingresada supera los disponibles, "
                                 + "intentelo de nuevo");
@@ -149,16 +146,14 @@ public class Proyecto_Tower_Defense {
                 case ("M"):
                     mag = Integer.parseInt(JOptionPane.showInputDialog
                         ("Ingrese la cantidad de magos deseados\n"));
-                    if (mag < disp) {           // Menos que disponibles
+                    if (mag <= disp) {           // Menos que disponibles
                         // agregar los arqueros a la cola**
-                        colaJug.agregaTropaJugador(mag, TipoTropa.MAGO);
-                        disp = disp - mag; //Resta de disp los miemb ingresados
+                       for (int i = 0; i < mag; i++){
+                        colaJug.agregaTropaJugador(1, TipoTropa.MAGO);
+                        colaJug.SelecCaminosJug();
                     } 
-                    else if (mag == disp) {     // Igual a disponibles
-                        // agregar los arqueros a la cola**
-                        colaJug.agregaTropaJugador(mag, TipoTropa.MAGO);
-                        disp = disp - mag;      // Resta todo
-                    } 
+                   disp = disp - mag; //Resta de disp los miemb ingresados
+                   }
                     else {                      // Más que disponibles
                         JOptionPane.showMessageDialog(null,
                                 "Cantidad ingresada supera los disponibles, "
