@@ -30,15 +30,23 @@ public class ListaSimple {
     }
 
     // Método para extraer y eliminar el primer nodo de la lista
-    public Tropa extraer() {
+    public void extraer(int id) {
         if (cabeza == null) {
             // Si la lista está vacía, devolvemos null
-            return null;
+            //return null;
+            System.out.println("No hay nada que extraer");
         }
-        Tropa valor = cabeza.getTropa();
-        cabeza = cabeza.getSiguiente();
+//        Tropa valor = cabeza.getTropa();
+//        cabeza = cabeza.getSiguiente();
+        Nodo aux = cabeza;
+        while (aux.getSiguiente() != null && 
+                id != aux.getSiguiente().getTropa().getId()) {
+            aux = aux.getSiguiente(); // Toma el siguiente
+        }
+        if(cabeza==aux) cabeza = cabeza.getSiguiente();  // si es la cabeza
+        else aux.setSiguiente(aux.getSiguiente().getSiguiente());
         enjuego--;
-        return valor;
+        //return valor;
     }
 
     public void check(Nodo aux, Camino sup, Camino inf){
@@ -48,8 +56,7 @@ public class ListaSimple {
             if(sup.existe(aux.getTropa().getId())) up = true;
             if(inf.existe(aux.getTropa().getId())) down = true;
         }
-        //if(!up && !down) extraer(valor)
-       
+        if(!up && !down) extraer(aux.getTropa().getId());
         
     }
     
@@ -106,7 +113,20 @@ public class ListaSimple {
         this.enjuego = enjuego;
     }
 
-    
+    public void imprimir(){
+        String lista = "";
+        Nodo aux = cabeza;
+        if (aux == null) System.out.println("No han ingresado tropas");
+        else{
+            while(aux != null){
+                lista += aux.getTropa().getTipoTropa() 
+                        + "   "+ aux.getTropa().getId()
+                        + "   "+ aux.getTropa().getCamino()+"\n";
+                aux = aux.getSiguiente();
+            }
+        }    
+        System.out.println(lista);
+    }
     
 }
 

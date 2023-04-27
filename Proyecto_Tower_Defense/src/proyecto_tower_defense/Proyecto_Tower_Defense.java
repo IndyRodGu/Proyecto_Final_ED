@@ -214,23 +214,39 @@ public class Proyecto_Tower_Defense {
     
         while (play){  // Mientras el juego esté en curso
             
+            // Agregar piezas --------------------------------------------------
+            
             if(contador <= max){ // mientras el contador sea menos que el max
-                Nodo aux = null;
+                Nodo aux = null; // Nodo aux que toma los datos
                 
-                // si son pares
+                // 1. Se asigna valor a nodo aux -------------------    
+                // si son pares y la cola de CPU no está vacía
                 if(contador %2 == 0 && !cpu.vacia()){
-                    aux = cpu.atiende();
+                    aux = cpu.atiende(); // auxiliar toma cabeza de cpu
                 }
+                // Si son impares y la cola de jugador no esta vacía
                 else if (contador %2 != 0 && !jugador.vacia()){
-                    aux = jugador.atiende();
+                    aux = jugador.atiende(); // auxliar toma cabeza de jugador
                 }
                 
-                
-                
+                // 2. Se adiciona a la lista -----------------------
+                if (aux != null){ // Si el nodo no está vacío
+                    
+                    Tropa t = aux.getTropa(); // Valor de la tropa
+                    todosJug.agregar(t);      // Se agrega a la lista de objetos
+                    int cami = t.getCamino(); // Valor del camino de t
+                    if(cami == 1) superior.ingresa(t);  // si 1: superior
+                    else inferior.ingresa(t);           // si 2: inferior
+                }
+                // 3. Imprimir en consola para visualizar ----------
+                todosJug.imprimir(); // SE ve la lista en la consola (control)
+                JOptionPane.showMessageDialog(null, tab.show()); // se ve adición
+               
             }
             
             
             
+            // Proceso de movimiento -------------------------------------------
             
             
             
@@ -240,8 +256,7 @@ public class Proyecto_Tower_Defense {
             
             
             
-            
-            
+
             
             // ------------------------------------------- Verificación de escena
 
@@ -255,6 +270,8 @@ public class Proyecto_Tower_Defense {
             }
 
             contador ++;
+        
+        
         } // fin while
         
         
