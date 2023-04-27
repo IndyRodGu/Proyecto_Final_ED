@@ -14,7 +14,7 @@ public class Proyecto_Tower_Defense {
         int disponibles;            // Cantidad de tropas disponibles
         Cola colaJug = new Cola();  // Se crea cola para jugadores
         Cola colaCPU = new Cola();  // Se crea cola para cpu 
-        int contador = 0;
+        //int contador = 0;
         
         // Menu principal ------------------------------------------------------
         boolean juego = true;       // Mientras el juego esté en curso
@@ -30,13 +30,12 @@ public class Proyecto_Tower_Defense {
                 case (1): 
                     // 1. Creación de colas
                     colaJug = menuJuego(disponibles);        // Cola jugadores
-//                    colaCPU.agregaTropaCPU(disponibles - 1); // Agrega tropas
-//                    colaCPU.SelecCaminoCPU();
-//                    System.out.println(colaCPU.verLista());
-//                   // Asignar caminos
-                    System.out.println(colaJug.verLista());
-                    contador = 0;
-                    op = 2;                                  // 3 = juego
+                    colaCPU.agregaTropaCPU(disponibles - 1); // Agrega tropas
+                    colaCPU.SelecCaminoCPU();                // Asignar caminos           
+                    System.out.println(colaJug.verLista());  // Ver listas 
+                    System.out.println(colaCPU.verLista());
+                    //contador = 0;
+                    op = 3;                                  // 3 = juego
                     ronda++;                                 // Agrega ronda
                     break;
 
@@ -47,8 +46,8 @@ public class Proyecto_Tower_Defense {
                 
                 // ------------------ Escena 3: Desarrollo del juego
                 case (3):
-                    op = juego(colaJug, colaCPU, contador); // Presenta juego                           
-                    contador ++;
+                    op = juego(colaJug, colaCPU, disponibles); // Presenta juego                           
+                    //contador ++;
                     break;
                     
                 // ----------------- Escena 4: Gana Jugador 
@@ -172,7 +171,7 @@ public class Proyecto_Tower_Defense {
                         "Ingrese una opcion valida");
                     break;
             }                   
-            System.out.println(colaJug.verLista());
+            
         }
         return colaJug;
     }
@@ -181,7 +180,7 @@ public class Proyecto_Tower_Defense {
     
     // Juego principal----------------------------------------------------------
     
-    public static int juego(Cola jugador, Cola cpu, int contador) { 
+    public static int juego(Cola jugador, Cola cpu, int disp) { 
         
     // -------------------------------- Variables
         // Asignación de colas
@@ -199,60 +198,127 @@ public class Proyecto_Tower_Defense {
         // Recibe 5 filas, 6 columnas y caminos superior e inferior
         Tablero tab = new Tablero(5,6,superior,inferior); 
         System.out.println("tablero");
- 
-    // --------------------------------------- Desarrollo del juego
-        Nodo aux = null;
         
-        // si todavía hay en cola
-        if (!colaJug.vacia() || !colaCPU.vacia()) {
-            if (contador % 2 == 0 && !colaJug.vacia()) { // Si es par entra (JUGADORES) al juego
-                aux = colaJug.atiende();
-            } 
-            else if (contador % 2 != 0 && !colaCPU.vacia())  { // Si es impar entra (CPU) al juego
-                aux = colaCPU.atiende();
-            }
-
-            todosJug.agregar(aux.getTropa()); // Se agrega a la lista
-
-            // Se agrega el camino correspondiente
-            if(aux.getTropa().getCamino() == 1){  
-                superior.ingresa(aux.getTropa());
-            }
-            else if (aux.getTropa().getCamino() == 2){
-                inferior.ingresa(aux.getTropa());
-            }
-        }
-        
-     
-        
-        for(int i = 0; i < todosJug.getEnjuego(); i++){
-            System.out.println(todosJug.getTropa(i).getPlayer());  
-            Torre enemTorre = new Torre();
-            if (todosJug.getTropa(i).getPlayer() == 1) enemTorre = TorreCPU;
-            else enemTorre = TorreJug;
-            
-            if(todosJug.getCamino(i) == 1){
-                superior.avanza(todosJug.getTropa(i), enemTorre);
-            }
-            else{
-                inferior.avanza(todosJug.getTropa(i), enemTorre);
-            }
-            JOptionPane.showMessageDialog(null, tab.show());
-            
-        }
-        
+        // Sistema de Juego
+        int contador = 1; // cuenta la cantidad de vueltas que tiene el programa
+        int max = disp + (disp - 1);
+        int resultado = 0; // Para saber resultado (ir a qué escena)
+        boolean play = true;
        
         
+        //int rev = 0;
         
         
-        // ------------------------------------------- Verificación de escena
-        int resultado; // Para saber resultado
-        if (TorreCPU.isDestruido())  resultado = 4;    // Jugador gana
-        else if(TorreJug.isDestruido()) resultado = 5; // CPU gana 
-        else resultado = 3;                            // Continua el juego
+        
+    // --------------------------------------- Desarrollo del juego
+    
+        while (play){  // Mientras el juego esté en curso
+            
+            if(contador <= max){ // mientras el contador sea menos que el max
+                Nodo aux = null;
+                
+                // si son pares
+                if(contador %2 == 0 && !cpu.vacia()){
+                    aux = cpu.atiende();
+                }
+                else if (contador %2 != 0 && !jugador.vacia()){
+                    aux = jugador.atiende();
+                }
+                
+                
+                
+            }
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            // ------------------------------------------- Verificación de escena
+
+            if (TorreCPU.isDestruido())  resultado = 4;    // Jugador gana
+            else if(TorreJug.isDestruido()) resultado = 5; // CPU gana 
+            else resultado = 3;                            // Continua el juego
+
+            if (contador == 25){
+                resultado = 5;
+                play = false;
+            }
+
+            contador ++;
+        } // fin while
+        
         
         return resultado;
         
     }
     
 }
+
+
+/*
+
+            // Si todavía hay elementos en cola
+            if (!colaJug.vacia() || !colaCPU.vacia()) {  // Revisa si están vacías
+                Nodo aux = null;  // Tenemos un nodo que podemos usa
+                // ----------------- Si es par y no vacía toma de (JUGADORES) 
+                if (contador % 2 == 0 && !colaJug.vacia()) {  
+                    aux = colaJug.atiende();  // Nodo auxiliar guarda
+                } 
+                // ----------------- Si es impar y no vacía toma de lista de (CPU)
+                else if (contador % 2 != 0 && !colaCPU.vacia())  { 
+                    aux = colaCPU.atiende(); // Nodo auxiliar guarda
+                }
+
+                // Se agrega el camino correspondiente
+                if(aux!= null){ // Se revisa si el contenido es 
+                    if(aux.getTropa().getCamino() == 1){  
+                        superior.ingresa(aux.getTropa());
+                    }
+                    else if (aux.getTropa().getCamino() == 2){
+                        inferior.ingresa(aux.getTropa());
+                    }
+                    todosJug.agregar(aux.getTropa()); // Se agrega a la lista
+                }
+                superior.imprimirJug();
+                inferior.imprimirJug();
+
+                JOptionPane.showMessageDialog(null, tab.show());
+            }
+            
+            
+            
+//            // Check si hay algo en lista (en caso de que hay algo nulo
+//            if (todosJug.getTropa(0)== null) rev = 1;
+//            else rev = 0;
+//            
+//            while(rev < todosJug.getEnjuego()){
+//                
+//                Tropa trope = todosJug.getTropa(rev);
+//                System.out.println(trope.getPlayer()+" "+trope.getTipoTropa()+
+//                        " "+trope.getCamino()+" "+trope.getId()); 
+//                
+//                Torre enemTorre = new Torre();
+//                if (trope.getPlayer() == 1) enemTorre = TorreCPU;
+//                else enemTorre = TorreJug;
+//                
+//                if(todosJug.getCamino(rev) == 1){
+//                    superior.avanza(trope, enemTorre);
+//                }
+//                else{
+//                    inferior.avanza(trope, enemTorre);
+//                }
+//                JOptionPane.showMessageDialog(null, tab.show());
+//                
+//                rev++;
+//            }
+*/
