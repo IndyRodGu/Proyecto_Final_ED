@@ -8,7 +8,9 @@ public class Proyecto_Tower_Defense {
         public static Torre TorreCPU = new Torre();     // Torre CPU
         public static Torre TorreJug = new Torre();     // Torre Jugador
         
+        
     public static void main(String[] args) {
+        Juego game=new Juego();
         // Variables -----------------------------------------------------------
         int ronda = 1;              // Número de ronda inicial
         int disponibles;            // Cantidad de tropas disponibles
