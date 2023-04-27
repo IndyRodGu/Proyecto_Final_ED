@@ -80,10 +80,12 @@ public class Camino {
     public boolean existe (int id){ // Busca el "adoquin" en que está el jugador
         NodoCam aux = cabeza;                        
         // Evalua si id del jugador es igual
-        while(aux != null){
-            if (aux.getDato().getId() == id) return true;
+        
+        while(aux != null && (aux.getDato() == null || aux.getDato().getId() != id )){  
             aux = aux.getNext();
         }
+        if(aux != null && aux.getDato().getId() == id) return true;
+        
         return false;
     }
     
@@ -143,7 +145,8 @@ public class Camino {
         while(posActual != aux.getAdoquin()){     // Recorrer hasta encontrar 
             aux = aux.getNext();
         }
-        if(aux.getBack().getDato() != null){     // Si adoquin anterior ocupado 
+        // Si adoquin anterior ocupado 
+        if(aux.getBack().getDato() != null){     
             Tropa A = aux.getDato();             // CPU (se puede mover)
             Tropa B = aux.getBack().getDato();   // Jugador (No se mueve) 
         // ----- A derrota a B
@@ -173,7 +176,7 @@ public class Camino {
             posActual--;                    // Se resta posición
         }
         // Si ahora está en la cabeza, ataca la torre del jugador
-        if (posActual == ultimo.getAdoquin()){
+        if (posActual == cabeza.getAdoquin()){
             torreEnemiga.danio(tropa.getTowerWreckage()); // hace daño
             cabeza.setDato(null); // quita del tablero
            // NOTA: Borrar en lista

@@ -36,29 +36,41 @@ public class ListaSimple {
             //return null;
             System.out.println("No hay nada que extraer");
         }
-//        Tropa valor = cabeza.getTropa();
-//        cabeza = cabeza.getSiguiente();
-        Nodo aux = cabeza;
-        while (aux.getSiguiente() != null && 
-                id != aux.getSiguiente().getTropa().getId()) {
-            aux = aux.getSiguiente(); // Toma el siguiente
+        else{
+            Nodo aux = cabeza;
+            while (aux.getSiguiente() != null && 
+                    id != aux.getSiguiente().getTropa().getId()) {
+                aux = aux.getSiguiente(); // Toma el siguiente
+                System.out.println("");
+            }
+            if(cabeza==aux) cabeza = cabeza.getSiguiente();  // si es la cabeza
+            else if(aux.getSiguiente() == null) aux.setSiguiente(null);
+            else aux.setSiguiente(aux.getSiguiente().getSiguiente());
+            enjuego--;
         }
-        if(cabeza==aux) cabeza = cabeza.getSiguiente();  // si es la cabeza
-        else aux.setSiguiente(aux.getSiguiente().getSiguiente());
-        enjuego--;
-        //return valor;
     }
 
-    public void check(Nodo aux, Camino sup, Camino inf){
+    public void check(Tropa t, Camino sup, Camino inf){
+        if(!existe(t,sup,inf)){ 
+            extraer(t.getId());
+        }
+    }
+    
+    
+    public boolean existe(Tropa t, Camino sup, Camino inf){
         boolean up = false;
         boolean down = false;
         if (cabeza != null){
-            if(sup.existe(aux.getTropa().getId())) up = true;
-            if(inf.existe(aux.getTropa().getId())) down = true;
+            if(sup.existe(t.getId())) up = true;
+            if(inf.existe(t.getId())) down = true;
         }
-        if(!up && !down) extraer(aux.getTropa().getId());
-        
+        if(up || down){ 
+            
+            return true;
+        }
+        return false;
     }
+    
     
     
     // Gets y Sets -------------------------------------------------------------
@@ -77,8 +89,7 @@ public class ListaSimple {
         Nodo aux = cabeza;
         if(aux != null){
             int encuentra = 0;
-            while(aux.getSiguiente() != null){
-                if (encuentra == pos) break;
+            while(aux.getSiguiente() != null && encuentra != pos ){
                 encuentra++;
                 aux = aux.getSiguiente();
             }
@@ -87,31 +98,31 @@ public class ListaSimple {
         else return null;
     }
     
-    public Tropa getTorreEnem(int i){
-        Nodo aux = cabeza;
-        int encuentra = 0;
-        while(encuentra != 1 && aux.getSiguiente() != null){
-            aux = aux.getSiguiente();
-        }
-        return aux.getTropa();
-    }
+//    public Tropa getTorreEnem(int i){
+//        Nodo aux = cabeza;
+//        int encuentra = 0;
+//        while(encuentra != 1 && aux.getSiguiente() != null){
+//            aux = aux.getSiguiente();
+//        }
+//        return aux.getTropa();
+//    }
+//    
     
-    
-    public Nodo getCabeza() {
-        return cabeza;
-    }
-
-    public void setCabeza(Nodo cabeza) {
-        this.cabeza = cabeza;
-    }
+//    public Nodo getCabeza() {
+//        return cabeza;
+//    }
+//
+//    public void setCabeza(Nodo cabeza) {
+//        this.cabeza = cabeza;
+//    }
 
     public int getEnjuego() {
         return enjuego;
     }
 
-    public void setEnjuego(int enjuego) {
-        this.enjuego = enjuego;
-    }
+//    public void setEnjuego(int enjuego) {
+//        this.enjuego = enjuego;
+//    }
 
     public void imprimir(){
         String lista = "";
@@ -127,6 +138,6 @@ public class ListaSimple {
         }    
         System.out.println(lista);
     }
-    
+       
 }
 
