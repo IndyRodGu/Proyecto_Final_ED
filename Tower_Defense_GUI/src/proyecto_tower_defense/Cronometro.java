@@ -1,68 +1,89 @@
 /*Cronometro que indica el tiempo transcurrido en el juego */
 package proyecto_tower_defense;
 
-import javax.swing.Timer;
-import java.awt.event.*;
-import javax.swing.JOptionPane;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JLabel;
 
-public class Cronometro {
+public class Cronometro extends JLabel implements Runnable{
     
-        private int delay = 1000; // En milisegundos
-        private int segundos = 0;
-        private int minutos = 0;
-        private Timer timer;
-        
-        public void mostrarCronometro(){
-            timer = new Timer(delay, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                segundos++;
-                if (segundos == 60) {
-                    minutos++;
-                    segundos = 0;
-                }
-            }
-        });
-        timer.start(); // Mover al main
-        while (true) {
-            int opcion = JOptionPane.showConfirmDialog(null, "Tiempo transcurri"
-                    + "do: " + minutos + " min " + segundos + " seg. ¿Desea "
-                            + "continuar?", "Cronómetro", 
-                            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-            if (opcion == JOptionPane.NO_OPTION) {
-                timer.stop();
-                break;
-            }
-        }
+    JLabel tiempo;
+    Thread hilo;
+    boolean cronometroActivo = true;
+ 
+    
+    public Cronometro(){
+        //Etiqueta donde se colocara el tiempo 
+        tiempo = new JLabel( "00:00:000" );
+        tiempo.setLayout(null);
+        tiempo.setBounds(600-100, 30, 200, 30);
+        tiempo.setFont( new Font( Font.SANS_SERIF, Font.BOLD, 20 ) );
+        tiempo.setHorizontalAlignment( JLabel.CENTER );
+        tiempo.setForeground( Color.WHITE );
+        tiempo.setBackground( Color.BLACK );
+        tiempo.setOpaque( true );
+        tiempo.setVisible(true);
+        //add( tiempo, BorderLayout.CENTER );
+        cronometroActivo = true;
+        hilo = new Thread( this );
+        hilo.start();     
     }
+
+    public void run(){
+        Integer minutos = 0 , segundos = 0, milesimas = 0;
+        //min es minutos, seg es segundos y mil es milesimas de segundo
+        String min="", seg="", mil="";
+        try
+        {
+            //Mientras cronometroActivo sea verdadero entonces seguira
+            //aumentando el tiempo
+            while( cronometroActivo )
+            {
+                Thread.sleep( 4 );
+                //Incrementamos 4 milesimas de segundo
+                milesimas += 4;
+
+                //Cuando llega a 1000 osea 1 segundo aumenta 1 segundo
+                //y las milesimas de segundo de nuevo a 0
+                if( milesimas == 1000 )
+                {
+                    milesimas = 0;
+                    segundos += 1;
+                    //Si los segundos llegan a 60 entonces aumenta 1 los minutos
+                    //y los segundos vuelven a 0
+                    if( segundos == 60 )
+                    {
+                        segundos = 0;
+                        minutos++;
+                    }
+                }
+
+                //Esto solamente es estetica para que siempre este en formato
+                //00:00:000
+                if( minutos < 10 ) min = "0" + minutos;
+                else min = minutos.toString();
+                if( segundos < 10 ) seg = "0" + segundos;
+                else seg = segundos.toString();
+
+                if( milesimas < 10 ) mil = "00" + milesimas;
+                else if( milesimas < 100 ) mil = "0" + milesimas;
+                else mil = milesimas.toString();
+
+                //Colocamos en la etiqueta la informacion
+                tiempo.setText( min + ":" + seg + ":" + mil );
+            }
+        } catch(Exception e){}
+        //Cuando se reincie se coloca nuevamente en 00:00:000
+        tiempo.setText( "00:00:000" );
+    }
+
+    public JLabel getTiempo() {
+        return tiempo;
+    }
+
+    public void setTiempo(JLabel tiempo) {
+        this.tiempo = tiempo;
+    }  
 }
-//
-//        long t1, t2, dif;
-//        String cad;
-//        Scanner teclado = new Scanner(System.in);
-//
-//        // Se toma la hora en el inicio del programa
-//        Calendar ahora1 = Calendar.getInstance(); // Crear una instancia de la clase Calendar
-//        t1 = ahora1.getTimeInMillis(); // Esta variable guarda la hora actual en milisegundos
-//        
-//        // Código de lo que se quiere cronometrar
-//        System.out.println("Empieza a contar el tiempo.");
-//        System.out.println("Pulsa Intro para terminar");
-//
-//        // Se espera q el usuario pulse Intro
-//        cad = teclado.nextLine();
-//        
-//        // Luego del código se obtiene la nueva hora en ms para posteriormente calcular la diferencia.
-//        //Se vuelve a tomar la hora una vez que ha pulsado Intro
-//        Calendar ahora2 = Calendar.getInstance();
-//        t2 = ahora2.getTimeInMillis();
-//
-//        /* El tiempo tardado será la diferencia de la hora tomada al final (t2)
-//         y la tomada al principio (t1), que se guardará en una variable de 
-//         tipo long. */
-//        dif = t2 - t1;
-//        
-//        // Se muestra en pantalla la diferencia de tiempo obtenido
-//        System.out.println("Has tardado: " + dif + "milisegundos");
-//        System.out.printf("Equivale a: %.3f segundos", (double) dif / 1000);
-//        
