@@ -1,13 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package proyecto_tower_defense;
 
-/**
- *
- * @author jenny
- */
 /* Movimientos del juego*/
 
 import java.awt.Color;
@@ -30,7 +23,7 @@ public abstract class Juego extends JFrame implements ActionListener {
     // MARCO DE LA APP
     JFrame ventana;
 
-    // PANEL DE PRESENTACIîN
+    // PANEL DE PRESENTACION
     JPanel panelPresentacion;
     JButton iniciar;
     JLabel fondoPresentacion;
@@ -53,8 +46,7 @@ public abstract class Juego extends JFrame implements ActionListener {
     static JPanel panelJuego;
     JLabel fondoJuego;
     ImageIcon imagenFondoJuego;
-    
-  
+    JLabel ronda;  
     
     // TORRE
     JLabel puntajeTorre1;
@@ -127,4 +119,170 @@ public abstract class Juego extends JFrame implements ActionListener {
             }
         });
 
+
+        
+        ventana.add(panelPresentacion);
+        ventana.setVisible(true);
+    }
+
+    public void menu() {
+        /*
+        Al llamar el método menú, lo primero que va a hacer es ocultar el panelPresentación
+        por eso el "false" dentro del paréntesis
+         */
+        panelPresentacion.setVisible(false);
+
+        // CREAMOS UN PANEL DEL TAMAÑO DE LA VENTNA
+        panelMenu = new JPanel();
+        panelMenu.setLayout(null);
+        panelMenu.setBounds(0, 0, ventana.getWidth(), ventana.getHeight());
+        panelMenu.setVisible(true);
+
+        // FONDO DEL PANEL
+        fondoMenu = new JLabel();
+        fondoMenu.setBounds(0, 0, ventana.getWidth(), ventana.getHeight());
+        imagenFondoMenu = new ImageIcon("Imagen/camino.png");
+        imagenFondoMenu = new ImageIcon(imagenFondoMenu.getImage().getScaledInstance(ventana.getWidth(), ventana.getHeight(), Image.SCALE_DEFAULT));
+        fondoMenu.setIcon(imagenFondoMenu);
+        fondoMenu.setVisible(true);
+        panelMenu.add(fondoMenu, 0);
+
+        // BOTÓN CONTINUAR
+        boton1.setText("Continuar");
+        boton1.setBounds(110, 675, 100, 40);
+        boton1.setVisible(true);
+        boton1.setBackground(Color.white);
+        panelMenu.add(boton1, 0);
+
+        // TÍTULO "PERSONAJES"
+        label1 = new JLabel("PERSONAJES");
+        label1.setBounds(35, 610, 100, 30);
+        label1.setVisible(true);
+        panelMenu.add(label1, 0);
+
+        // COMBO BOX DE PERSONAJES
+        combo1 = new JComboBox<String>();
+        combo1.setBounds(125, 610, 110, 30);
+        combo1.addItem("Arquero");
+        combo1.addItem("Caballero");
+        combo1.addItem("Mago");
+        combo1.setVisible(true);
+        panelMenu.add(combo1, 0);
+
+        // TÍTULO "CAMINOS"
+        label2 = new JLabel("CAMINOS");
+        label2.setBounds(35, 640, 100, 30);
+        label2.setVisible(true);
+        panelMenu.add(label2, 0);
+
+        // COMBO BOX DE CAMINOS
+        combo2 = new JComboBox<String>();
+        combo2.setBounds(125, 640, 155, 30);
+        combo2.addItem("Camino superior");
+        combo2.addItem("Camino inferior");
+        combo2.setVisible(true);
+        panelMenu.add(combo2, 0);
+
+        // AGREGAR EL PANEL MENU A LA VENTANA
+        ventana.add(panelMenu);
+        ventana.setVisible(true);
+
+        // Cuando le damos click al boton1 (continuar) pasa al método juego
+        boton1.addMouseListener(new MouseAdapter() {
+            //Función del mouse
+            public void mouseReleased(MouseEvent e) {
+                // Al dale click a iniciar debería aparecer el panel de menu
+                jugador = JOptionPane.showInputDialog(ventana, "Nombre del jugador:",
+                        "Escriba el nombre aqui");
+
+                while (jugador == null || jugador.compareTo("Escriba el nombre aqui") == 0
+                        || jugador.compareTo("") == 0) {
+                    jugador = JOptionPane.showInputDialog(ventana, "Nombre del jugador:",
+                            "Escriba el nombre aqui");
+                }
+                juego();
+            }
+        });
+    }
+    
+    
+    public void juego() {
+        // CREAR OBJETOS TORRE Y CRONOMETRO
+        Torre torre1 = new Torre();
+        Torre torre2 = new Torre();
+        Cronometro crono = new Cronometro();
+
+        panelMenu.setVisible(false);
+
+        // CREAMOS UN PANEL DEL TAMAÑO DE LA VENTNA
+        panelJuego = new JPanel();
+        panelJuego.setLayout(null);
+        panelJuego.setBounds(0, 0, ventana.getWidth(), ventana.getHeight());
+        panelJuego.setVisible(true);
+
+        // FONDE DEL JUEGO
+        fondoJuego = new JLabel();
+        fondoJuego.setBounds(0, 0, ventana.getWidth(), ventana.getHeight());
+        imagenFondoJuego = new ImageIcon("Imagen/camino.png");
+        imagenFondoJuego = new ImageIcon(imagenFondoMenu.getImage().getScaledInstance(ventana.getWidth(), ventana.getHeight(), Image.SCALE_DEFAULT));
+        fondoJuego.setIcon(imagenFondoJuego);
+        fondoJuego.setVisible(true);
+        panelJuego.add(fondoJuego, 0);
+
+        // PUNTOS DE LAS TORRES
+        // TORRE 1
+        puntajeTorre1 = new JLabel("Puntos Torre: " + torre1.getVida());
+        puntajeTorre1.setBounds(25, 200, 200, 30);
+        puntajeTorre1.setFont(new Font("SANS_SERIF", Font.BOLD, 10));
+        panelJuego.add(puntajeTorre1, 0);
+        
+        //NOMBRE DEL USUARIO EN TORRE 1
+        nombre = new JLabel ("Jugador: "+ jugador);
+        nombre.setBounds (20, 175, 400, 30);
+        nombre.setFont(new Font("SANS_SERIF", Font.BOLD, 15));
+        panelJuego.add(nombre, 0);
+        
+        // TORRE 2
+        puntajeTorre2 = new JLabel("Puntos Torre: " + torre2.getVida());
+        puntajeTorre2.setBounds(1075, 200, 200, 30);
+        puntajeTorre2.setFont(new Font("SANS_SERIF", Font.BOLD, 10));
+        panelJuego.add(puntajeTorre2, 0);
+        
+        //NOMBRE DEL CPU EN TORRE 2
+        cpu = new JLabel("CPU");
+        cpu.setBounds(1107, 175, 70, 30);
+        cpu.setFont(new Font("SANS_SERIF", Font.BOLD, 15));
+        panelJuego.add(cpu, 0);
+        
+        // Nombre Ronda
+        ronda = new JLabel ("Ronda: "); // Agregar el resto del codigo cuando se haga el merge con el proyecto principal
+        ronda.setBounds(550, 70 , 100 , 30);
+        ronda.setFont(new Font("SANS_SERIF", Font.BOLD, 15));
+        ronda.setHorizontalAlignment(JLabel.CENTER);
+        ronda.setForeground(Color.BLACK);
+        ronda.setBackground(Color.CYAN);
+        ronda.setOpaque(true);
+        ronda.setVisible(true);
+        panelJuego.add(ronda , 0);
+        
+        
+        //Etiqueta donde se colocara el tiempo 
+        panelJuego.add(crono.getTiempo(), 0);
+
+        
+        ventana.add(panelJuego);
+        ventana.setVisible(true);
+    }
+    
+       
+     
+    public static void main(String[] ar) {
+        Juego formulario1 = new Juego() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+            }
+        };
+    }
+}
 
