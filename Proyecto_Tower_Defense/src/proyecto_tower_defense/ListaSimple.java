@@ -66,14 +66,20 @@ public class ListaSimple {
         return aux.getTropa().getCamino();
     }
 
-    public Tropa getTropa(int i){
+    public Tropa getTropa(int pos){
         Nodo aux = cabeza;
-        int encuentra = 0;
-        while(encuentra != 1 && aux.getSiguiente() != null){
-            aux = aux.getSiguiente();
+        if(aux != null){
+            int encuentra = 0;
+            while(aux.getSiguiente() != null){
+                if (encuentra == pos) break;
+                encuentra++;
+                aux = aux.getSiguiente();
+            }
+            return aux.getTropa();
         }
-        return aux.getTropa();
+        else return null;
     }
+    
     public Tropa getTorreEnem(int i){
         Nodo aux = cabeza;
         int encuentra = 0;

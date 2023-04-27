@@ -66,7 +66,8 @@ public class Camino {
     public int localizar(int id){ // Busca el "adoquin" en que está el jugador
         NodoCam aux = cabeza;                        
         // Evalua si id del jugador es igual
-        while(aux.getNext() != null && (aux.getDato() == null || aux.getDato().getId() != id) ){ 
+        while(aux.getDato() == null || aux.getDato().getId() != id ){ 
+        //while(aux.getNext() != null && (aux.getDato() == null || aux.getDato().getId() != id) ){ 
             aux = aux.getNext();
         }
         int pos = aux.getAdoquin();         // indica la posición (adoquin)
@@ -96,7 +97,7 @@ public class Camino {
         while(posActual != aux.getAdoquin()){     // Recorrer hasta encontrar
             aux = aux.getNext();
         }
-        if(aux.getNext().getDato() != null){
+        if(aux.getNext().getDato() != null ){
             Tropa A = aux.getDato();             // Jugador (se puede mover)
             Tropa B = aux.getNext().getDato();   // CPU (No se mueve) 
         // ----- A derrota a B
@@ -203,7 +204,7 @@ public class Camino {
         }
         System.out.println("");
     }
-    
+     */
     
     public void imprimirJug(){ // Imprime de la cabeza al último ******
         NodoCam aux = cabeza;
@@ -217,7 +218,7 @@ public class Camino {
     
     
     
-    */
+   
     
     
 }
