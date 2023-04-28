@@ -43,7 +43,7 @@ public class Proyecto_Tower_Defense {
                 // ------------------ Escena 1: Selección de tropas
                 case (1): 
                     // 1. Creación de colas
-                    game.menu(colaCPU,colaJug,disponibles);
+                    game.menu(colaCPU,colaJug,disponibles,ronda);
                    // op = 3;                                  // 3 = juego
                     ronda++;                                 // Agrega ronda
                     break;

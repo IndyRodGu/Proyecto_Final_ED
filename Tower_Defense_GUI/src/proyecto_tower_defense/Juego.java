@@ -56,7 +56,7 @@ public abstract class Juego extends JFrame implements ActionListener {
     JLabel puntajeTorre2;
 
     // TIEMPO
-    public Juego(Cola colaCPU, Cola colaJug, int disponibles) {
+    public Juego(Cola colaCPU, Cola colaJug, int disponibles, int ronda) {
         //CREAR EL MARCO DE LA APP
         ventana = new JFrame("Tower Defense");
         ventana.setSize(1200, 750); // Tama–o de la ventana
@@ -117,7 +117,7 @@ public abstract class Juego extends JFrame implements ActionListener {
             public void mousePressed(MouseEvent e) {
                 // Al dale click a iniciar deber’a aparecer el panel de menu
                 //menu();
-                menu(colaCPU, colaJug, disponibles);
+                menu(colaCPU, colaJug, disponibles, ronda);
                 escena = 1;
             }
         });
@@ -126,7 +126,7 @@ public abstract class Juego extends JFrame implements ActionListener {
         ventana.setVisible(true);
     }
 
-    public void menu(Cola colaCPU, Cola colaJug, int disponibles) {
+    public void menu(Cola colaCPU, Cola colaJug, int disponibles, int ronda) {
         /*
         Al llamar el método menú, lo primero que va a hacer es ocultar el panelPresentación
         por eso el "false" dentro del paréntesis
@@ -142,7 +142,7 @@ public abstract class Juego extends JFrame implements ActionListener {
         // FONDO DEL PANEL
         fondoMenu = new JLabel();
         fondoMenu.setBounds(0, 0, ventana.getWidth(), ventana.getHeight());
-        imagenFondoMenu = new ImageIcon("Imagenes/camino.png");
+        imagenFondoMenu = new ImageIcon("Imagenes/fondo.png");
         imagenFondoMenu = new ImageIcon(imagenFondoMenu.getImage().getScaledInstance(ventana.getWidth(), ventana.getHeight(), Image.SCALE_DEFAULT));
         fondoMenu.setIcon(imagenFondoMenu);
         fondoMenu.setVisible(true);
@@ -168,12 +168,12 @@ public abstract class Juego extends JFrame implements ActionListener {
         JOptionPane.showMessageDialog(null,"** Tropas del Jugador **\n"
                     +colaJug.verLista());
        
-        juego();
+        juego(ronda);
         escena = 3;
         
     }
 
-    public void juego() {
+    public void juego(int ronda) {
         // CREAR OBJETOS TORRE Y CRONOMETRO
         Torre torre1 = new Torre();
         Torre torre2 = new Torre();
@@ -190,7 +190,7 @@ public abstract class Juego extends JFrame implements ActionListener {
         // FONDE DEL JUEGO
         fondoJuego = new JLabel();
         fondoJuego.setBounds(0, 0, ventana.getWidth(), ventana.getHeight());
-        imagenFondoJuego = new ImageIcon("Imagen/camino.png");
+        imagenFondoJuego = new ImageIcon("Imagenes/fondo.png");
         imagenFondoJuego = new ImageIcon(imagenFondoMenu.getImage().getScaledInstance(ventana.getWidth(), ventana.getHeight(), Image.SCALE_DEFAULT));
         fondoJuego.setIcon(imagenFondoJuego);
         fondoJuego.setVisible(true);
@@ -199,30 +199,31 @@ public abstract class Juego extends JFrame implements ActionListener {
         // PUNTOS DE LAS TORRES
         // TORRE 1
         puntajeTorre1 = new JLabel("Puntos Torre: " + torre1.getVida());
-        puntajeTorre1.setBounds(25, 200, 200, 30);
+        puntajeTorre1.setBounds(90, 330, 200, 30);
         puntajeTorre1.setFont(new Font("SANS_SERIF", Font.BOLD, 10));
         panelJuego.add(puntajeTorre1, 0);
 
         //NOMBRE DEL USUARIO EN TORRE 1
-        nombre = new JLabel("Jugador: " + jugador);
-        nombre.setBounds(20, 175, 400, 30);
+        nombre = new JLabel("Jugador ");
+        nombre.setBounds(20, 240, 400, 30);
         nombre.setFont(new Font("SANS_SERIF", Font.BOLD, 15));
         panelJuego.add(nombre, 0);
 
         // TORRE 2
         puntajeTorre2 = new JLabel("Puntos Torre: " + torre2.getVida());
-        puntajeTorre2.setBounds(1075, 200, 200, 30);
+        puntajeTorre2.setBounds(1025, 330, 200, 30);
         puntajeTorre2.setFont(new Font("SANS_SERIF", Font.BOLD, 10));
         panelJuego.add(puntajeTorre2, 0);
 
         //NOMBRE DEL CPU EN TORRE 2
         cpu = new JLabel("CPU");
-        cpu.setBounds(1107, 175, 70, 30);
+        cpu.setBounds(1127, 240, 70, 30);
         cpu.setFont(new Font("SANS_SERIF", Font.BOLD, 15));
         panelJuego.add(cpu, 0);
+        
 
         // Nombre Ronda
-        ronda = new JLabel("Ronda: "); // Agregar el resto del codigo cuando se haga el merge con el proyecto principal
+        ronda = new JLabel ("Ronda: "+ ronda); // Agregar el resto del codigo cuando se haga el merge con el proyecto principal
         ronda.setBounds(550, 70, 100, 30);
         ronda.setFont(new Font("SANS_SERIF", Font.BOLD, 15));
         ronda.setHorizontalAlignment(JLabel.CENTER);
