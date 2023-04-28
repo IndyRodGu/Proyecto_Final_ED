@@ -50,8 +50,7 @@ public abstract class Juego extends JFrame implements ActionListener {
     JLabel tropaJug;
 
     // COMBO BOX
-    private JLabel label1, label2;
-    private JComboBox<String> combo1, combo2;
+    JButton boton2;
     private JButton boton1;
 
     // PANEL JUEGO
@@ -182,6 +181,25 @@ public abstract class Juego extends JFrame implements ActionListener {
         juego(ronda);
         escena = 3;
 
+        
+        //Dentro del parentesis se pone el texto que va a contener el boton
+        boton2 = new JButton("Continuar");
+        boton2.setBounds(ventana.getWidth()/2-50, ventana.getHeight()/3*2, 100, 40);
+        boton2.setVisible(true); //Para que el boton sea visible
+        /*Aqui estamos montandolo encima de nuestro marco y lo colocamos como una capa, va a ser la parte de abajo
+        Debo agregar los componenetes al panel, no la a ventana*/
+        panelMenu.add(boton2, 0);
+
+        // El boton por ahora no hace nada por tanto se crea un evento del boton
+        boton2.addMouseListener(new MouseAdapter() {
+            //Funci—n del mouse
+            public void mousePressed(MouseEvent e) {
+                // Al dale click a iniciar deber’a aparecer el panel de menu
+                //menu();
+                juego (ronda);
+            }
+        });
+        
     }
 
     public void juego(int ronda) {
