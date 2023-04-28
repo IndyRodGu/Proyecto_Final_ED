@@ -106,7 +106,7 @@ public class Cola {
         String s = "";
         System.out.println("Tropa  camino \n----------------");
         while (aux != null) {
-            if (aux.getTropa().getId() >= 6 && aux.getTropa().getPlayer() == 2) {
+            if (aux.getTropa().getId() >= 8 && aux.getTropa().getPlayer() == 2) {
                 s += "********";
             } else {
                 s += aux.getTropa().getTipoTropa() + "  "
