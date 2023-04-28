@@ -4,6 +4,7 @@ package proyecto_tower_defense;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import javax.swing.ImageIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -12,9 +13,17 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import java.awt.FlowLayout;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+
+
+
 import static proyecto_tower_defense.Proyecto_Tower_Defense.menuJuego;
 
 public abstract class Juego extends JFrame implements ActionListener {
@@ -54,6 +63,9 @@ public abstract class Juego extends JFrame implements ActionListener {
     // TORRE
     JLabel puntajeTorre1;
     JLabel puntajeTorre2;
+
+    //Pintar
+    static JLabel imagen;
 
     // TIEMPO
     public Juego(Cola colaCPU, Cola colaJug, int disponibles, int ronda) {
@@ -102,7 +114,7 @@ public abstract class Juego extends JFrame implements ActionListener {
 
         //Dentro del parentesis se pone el texto que va a contener el boton
         iniciar = new JButton("Iniciar");
-        iniciar.setBounds(ventana.getWidth()/2-50, ventana.getHeight()/3*2, 100, 40);
+        iniciar.setBounds(ventana.getWidth() / 2 - 50, 600, 100, 40);
         iniciar.setVisible(true); //Para que el boton sea visible
         /*Aqui estamos montandolo encima de nuestro marco y lo colocamos como una capa, va a ser la parte de abajo
         Debo agregar los componenetes al panel, no la a ventana*/
@@ -142,7 +154,7 @@ public abstract class Juego extends JFrame implements ActionListener {
         // FONDO DEL PANEL
         fondoMenu = new JLabel();
         fondoMenu.setBounds(0, 0, ventana.getWidth(), ventana.getHeight());
-        imagenFondoMenu = new ImageIcon("Imagenes/fondo.png");
+        imagenFondoMenu = new ImageIcon("Imagenes/menu.png");
         imagenFondoMenu = new ImageIcon(imagenFondoMenu.getImage().getScaledInstance(ventana.getWidth(), ventana.getHeight(), Image.SCALE_DEFAULT));
         fondoMenu.setIcon(imagenFondoMenu);
         fondoMenu.setVisible(true);
@@ -152,25 +164,24 @@ public abstract class Juego extends JFrame implements ActionListener {
         colaCPU.SelecCaminoCPU();                // Asignar caminos           
         System.out.println("** Tropas del CPU **");
         System.out.println(colaCPU.verLista());
-       
 
         // AGREGAR EL PANEL MENU A LA VENTANA
         ventana.add(panelMenu);
         ventana.setVisible(true);
-        
-        JOptionPane.showMessageDialog(null,"** Tropas del CPU **\n"
-                    +colaCPU.verLista());
-        
+
+        JOptionPane.showMessageDialog(null, "** Tropas del CPU **\n"
+                + colaCPU.verLista());
+
         colaJug = menuJuego(disponibles);        // Cola jugadores
         System.out.println("** Tropas del Jugador **");
         System.out.println(colaJug.verLista());  // Ver listas 
 
-        JOptionPane.showMessageDialog(null,"** Tropas del Jugador **\n"
-                    +colaJug.verLista());
-       
+        JOptionPane.showMessageDialog(null, "** Tropas del Jugador **\n"
+                + colaJug.verLista());
+
         juego(ronda);
         escena = 3;
-        
+
     }
 
     public void juego(int ronda) {
@@ -220,10 +231,9 @@ public abstract class Juego extends JFrame implements ActionListener {
         cpu.setBounds(1127, 240, 70, 30);
         cpu.setFont(new Font("SANS_SERIF", Font.BOLD, 15));
         panelJuego.add(cpu, 0);
-        
 
         // Nombre Ronda
-        rondaT = new JLabel ("Ronda: "+ ronda); // Agregar el resto del codigo cuando se haga el merge con el proyecto principal
+        rondaT = new JLabel("Ronda: " + ronda); // Agregar el resto del codigo cuando se haga el merge con el proyecto principal
         rondaT.setBounds(550, 70, 100, 30);
         rondaT.setFont(new Font("SANS_SERIF", Font.BOLD, 15));
         rondaT.setHorizontalAlignment(JLabel.CENTER);
@@ -238,6 +248,14 @@ public abstract class Juego extends JFrame implements ActionListener {
 
         ventana.add(panelJuego);
         ventana.setVisible(true);
+    }
+
+    public static void pintar() throws IOException {
+        BufferedImage myPicture = ImageIO.read(new File("Imagenes/"));
+        JLabel picLabel = new JLabel(new ImageIcon("Jug_Cab.png"));
+        picLabel.setBounds(20,20,150,30);
+        panelJuego.add(picLabel);
+ 
     }
 
     public int getEscena() {
