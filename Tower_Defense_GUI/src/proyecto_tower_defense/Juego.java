@@ -17,9 +17,13 @@ import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import static proyecto_tower_defense.Proyecto_Tower_Defense.menuJuego;
 
 public abstract class Juego extends JFrame implements ActionListener {
 
+    
+    int escena = 0;
+    
     // MARCO DE LA APP
     JFrame ventana;
 
@@ -55,7 +59,7 @@ public abstract class Juego extends JFrame implements ActionListener {
     // TIEMPO
 
     
-    public Juego() {
+    public Juego(Cola colaCPU, Cola colaJug,int disponibles)  {
         //CREAR EL MARCO DE LA APP
         ventana = new JFrame("Tower Defense");
         ventana.setSize(1200, 750); // Tama–o de la ventana
@@ -115,7 +119,9 @@ public abstract class Juego extends JFrame implements ActionListener {
             //Funci—n del mouse
             public void mousePressed(MouseEvent e) {
                 // Al dale click a iniciar deber’a aparecer el panel de menu
-                menu();
+                //menu();
+                menu(colaCPU,colaJug,disponibles);
+                escena=1;
             }
         });
 
@@ -125,7 +131,7 @@ public abstract class Juego extends JFrame implements ActionListener {
         ventana.setVisible(true);
     }
 
-    public void menu() {
+    public void menu(Cola colaCPU, Cola colaJug,int disponibles) {
         /*
         Al llamar el método menú, lo primero que va a hacer es ocultar el panelPresentación
         por eso el "false" dentro del paréntesis
@@ -146,6 +152,22 @@ public abstract class Juego extends JFrame implements ActionListener {
         fondoMenu.setIcon(imagenFondoMenu);
         fondoMenu.setVisible(true);
         panelMenu.add(fondoMenu, 0);
+        
+        
+        colaCPU.agregaTropaCPU(disponibles - 1); // Agrega tropas
+        colaCPU.SelecCaminoCPU();                // Asignar caminos           
+        System.out.println("** Tropas del CPU **");
+        System.out.println(colaCPU.verLista());
+        
+        // AGREGAR EL PANEL MENU A LA VENTANA
+        ventana.add(panelMenu);
+        ventana.setVisible(true);
+        
+        colaJug = menuJuego(disponibles);        // Cola jugadores
+        System.out.println("** Tropas del Jugador **");
+        System.out.println(colaJug.verLista());  // Ver listas 
+
+        /*
 
         // BOTÓN CONTINUAR
         boton1.setText("Continuar");
@@ -203,6 +225,8 @@ public abstract class Juego extends JFrame implements ActionListener {
                 juego();
             }
         });
+        */
+
     }
     
     
@@ -276,6 +300,7 @@ public abstract class Juego extends JFrame implements ActionListener {
     
        
      
+<<<<<<< Updated upstream
     public static void main(String[] ar) {
         Juego formulario1 = new Juego() {
             @Override
@@ -283,6 +308,20 @@ public abstract class Juego extends JFrame implements ActionListener {
                 throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
             }
         };
+=======
+//    public static void main(String[] ar) {
+//        Juego formulario1 = new Juego() {
+//            //@Override
+//            public void actionPerformed(ActionEvent e) {
+//                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+//            }
+//        };
+//    }
+    
+     public int getEscena() {
+        return escena;
+>>>>>>> Stashed changes
     }
+    
 }
 

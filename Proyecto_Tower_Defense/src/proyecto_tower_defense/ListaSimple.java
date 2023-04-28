@@ -37,25 +37,47 @@ public class ListaSimple {
             System.out.println("No hay nada que extraer");
         }
         else{
-            Nodo aux = cabeza;
-            while (aux.getSiguiente() != null && 
-                    id != aux.getSiguiente().getTropa().getId()) {
-                aux = aux.getSiguiente(); // Toma el siguiente
-                System.out.println("");
+            // Si cabera es el id buscado
+            if(cabeza.getTropa().getId() == id) cabeza = cabeza.getSiguiente();  // si es la cabeza
+            else{
+                Nodo aux = cabeza;
+                while (aux.getSiguiente().getSiguiente() != null && 
+                        id != aux.getSiguiente().getTropa().getId()) {
+                    aux = aux.getSiguiente(); // Toma el siguiente
+                }
+                if(aux.getSiguiente().getSiguiente() == null) aux.setSiguiente(null);
+                else aux.setSiguiente(aux.getSiguiente().getSiguiente());
+                enjuego--;
             }
-            if(cabeza==aux) cabeza = cabeza.getSiguiente();  // si es la cabeza
-            else if(aux.getSiguiente() == null) aux.setSiguiente(null);
-            else aux.setSiguiente(aux.getSiguiente().getSiguiente());
-            enjuego--;
         }
+        
+        
     }
+        /*
+        if (cabeza != null){    // Si hay algo en lista
+            if (cabeza.getDato().getId() == id){ // si id es de cabeza
+                cabeza = cabeza.getNext();       // cabeza se redefine
+            }
+            else{
+                Nodo aux = cabeza;                  // Sino crear aux = cabeza
+                while (aux.getNext() != null &&     // Si next es null o
+                        aux.getNext().getDato().getId() < id){  // next < id
+                    aux = aux.getNext();            // Se continua al siguiente
+                }
+                if (aux.getNext() != null &&        // Si siguiente no es null
+                        aux.getNext().getDato().getId() == id){ // aux.sig = id
+                    aux.setNext(aux.getNext().getNext()); // redefine next aux
+                }
+            }
+        }
+        */   
 
     public void check(Tropa t, Camino sup, Camino inf){
         if(!existe(t,sup,inf)){ 
             extraer(t.getId());
         }
     }
-    
+//    
     
     public boolean existe(Tropa t, Camino sup, Camino inf){
         boolean up = false;
