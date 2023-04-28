@@ -205,6 +205,7 @@ public class Proyecto_Tower_Defense {
         int resultado = 0; // Para saber resultado (ir a qué escena)
         boolean play = true; // Controla que siga en juego
         int rev = 0; // revisar
+        int agregar = jugador.getQtyTropa()+cpu.getQtyTropa();
         
         
         
@@ -237,6 +238,9 @@ public class Proyecto_Tower_Defense {
                     else inferior.ingresa(t);           // si 2: inferior
                     
                 // 3. Imprimir en consola para visualizar ----------
+                    superior.imprimirA();
+                    inferior.imprimirA();
+                    todosJug.imprimir();
                     JOptionPane.showMessageDialog(null, tab.show()); // se ve adición
                 }  
             }
@@ -255,16 +259,17 @@ public class Proyecto_Tower_Defense {
                         if(cami == 1) superior.avanza(tropa, TorreCPU,todosJug);
                         else inferior.avanza (tropa, TorreCPU,todosJug);     
                     }
-                    else{                               // Si es el cpu
+                    else if (tropa.getPlayer() == 2){   // Si es el cpu
                         if(cami == 1) superior.avanza(tropa, TorreJug,todosJug);
                         else inferior.avanza (tropa, TorreJug,todosJug);    
                     } 
-                    todosJug.check(tropa, superior, inferior);
+                    
                     superior.imprimirA();
                     inferior.imprimirA();
                     todosJug.imprimir();
                     JOptionPane.showMessageDialog(null, tab.show()); // se ve adición
                 }
+                todosJug.check(tropa, superior, inferior);
                 rev++;
             }
             
@@ -277,15 +282,15 @@ public class Proyecto_Tower_Defense {
             
             
             // ------------------------------------------- Verificación de escena
-
+            if(todosJug.getEnjuego() == 0 && contador > agregar) {
+                JOptionPane.showMessageDialog(null, "Nadie ha sido derrotado. Nueva Ronda");
+                resultado = 1; //1
+                play = false;
+            }
             if (TorreCPU.isDestruido())  resultado = 4;    // Jugador gana
             else if(TorreJug.isDestruido()) resultado = 5; // CPU gana 
             
-            if(todosJug.getEnjuego() == 0 && contador > max ) {
-                JOptionPane.showMessageDialog(null, "Nadie ha sido derrotado. Nueva Ronda");
-                resultado = 2; //1
-                play = false;
-            }
+            
             
 //            else resultado = 3;                            // Continua el juego
 //

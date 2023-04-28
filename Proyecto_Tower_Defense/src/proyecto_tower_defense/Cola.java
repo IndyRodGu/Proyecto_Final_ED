@@ -60,7 +60,7 @@ public class Cola {
 
         int id;
         if (cabeza == null) {
-            id = 0;
+            id = 2;
         } else {
             id = cola.getTropa().getId() + 2;
         }
