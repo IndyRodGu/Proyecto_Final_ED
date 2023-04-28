@@ -23,9 +23,7 @@ public class Tropa {
         setTipoTropa(TipoTropa);
     }
 
-/* Asigna una debilidad, su imagen y el danio que causa */
-
-      
+/* Asigna una debilidad, su imagen y el danio que causa */  
 
     //Gets and Sets
     

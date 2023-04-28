@@ -17,7 +17,7 @@ public class Proyecto_Tower_Defense {
         int disponibles = ronda + 4;// Cantidad de tropas disponibles
         Cola colaJug = new Cola();  // Se crea cola para jugadores
         Cola colaCPU = new Cola();  // Se crea cola para cpu 
-        //int contador = 0;
+        int opcion = 0;
         
         Juego game=new Juego(colaJug, colaCPU,ronda+4, ronda) {
              //@Override
@@ -61,30 +61,35 @@ public class Proyecto_Tower_Defense {
                     
                 // ----------------- Escena 4: Gana Jugador 
                 case (4):
-                    JOptionPane.showMessageDialog(null, "¡Ganaste!.");
+                    opcion = Integer.parseInt(JOptionPane.showInputDialog
+                        ("¡Ganaste! :) \n¿Qué deseas hacer?\n\n"
+                        + "1. Juegar de nuevo\n"
+                        + "2. Terminar el juego"));
+                
+                    if (opcion == 1) {
+                        ronda=1;    // Devuelve a ronda 1
+                        op = 1;     //se regresa al menu del juego 
+                    } 
+                    else {
+                        op = 2;     // Cierra la lata
+                    }
                     break;
                     
                 // ----------------- Escena 5: Gana CPU (Jugador pierde)
                 case (5):
-                    JOptionPane.showMessageDialog(null, "Perdiste. Mejor suerte la próxima.");
-                    break;
-                    
-                // ----------------- Escena 6: Se acabó el tiempo (Timeout) 
-                case (6):
-                     //if ( >= 300000) {
-                    //if ( >= 300000) {
-                int opcion = Integer.parseInt(JOptionPane.showInputDialog("Se acabó el tiempo. ¿Qué desea hacer?\n\n"
-                        + "1. Reintentar\n"
-                        + "2. Terminar el juego"));
+                    opcion = Integer.parseInt(JOptionPane.showInputDialog
+                        ("¡Perdiste! :( \n¿Qué deseas hacer?\n\n"
+                        + "1. Reintentar \n"
+                        + "2. Salir del juego"));
                 
-                if (opcion == 1) {
-                    //tiempo = 0;
-                    ronda=1;
-                    op = 1;//se regresa al menu del juego 
-                } else {
-                    op = 6;
-                }
-                     JOptionPane.showMessageDialog(null, "Perdiste por timeout.");
+                    if (opcion == 1) {
+                        ronda=1;    // Devuelve a ronda 1
+                        op = 1;     //se regresa al menu del juego 
+                    } 
+                    else {
+                        op = 2;     // Cierra la lata
+                    }
+                    
                     break;
                     
                 // ----------------- Escena 7: SE acaba el tiempo (Timeout)
@@ -210,8 +215,7 @@ public class Proyecto_Tower_Defense {
         int resultado = 0; // Para saber resultado (ir a qué escena)
         boolean play = true;
         int rev = 0;
-        
-        
+        int agregar = jugador.getQtyTropa()+cpu.getQtyTropa();
         
     // --------------------------------------- Desarrollo del juego
     
@@ -240,6 +244,9 @@ public class Proyecto_Tower_Defense {
                     else inferior.ingresa(t);           // si 2: inferior
                     
                 // 3. Imprimir en consola para visualizar ----------
+                    superior.imprimirA();
+                    inferior.imprimirA();
+                    todosJug.imprimir();
                     JOptionPane.showMessageDialog(null, tab.show()); // se ve adición
                 }  
 
@@ -256,18 +263,29 @@ public class Proyecto_Tower_Defense {
                     int cami = tropa.getCamino();       // Valor del camino de t
                     // ----------------------------------- Mover en los caminos
                     if(tropa.getPlayer() == 1){         // Si es el jugador          
-                        if(cami == 1) superior.avanza(tropa, TorreCPU);
-                        else inferior.avanza (tropa, TorreCPU);     
+                        if(cami == 1) superior.avanza(tropa, TorreCPU,todosJug);
+                        else inferior.avanza (tropa, TorreCPU,todosJug);     
                     }
                     else{                               // Si es el cpu
-                        if(cami == 1) superior.avanza(tropa, TorreJug);
-                        else inferior.avanza (tropa, TorreJug);    
+                        if(cami == 1) superior.avanza(tropa, TorreJug,todosJug);
+                        else inferior.avanza (tropa, TorreJug,todosJug);    
                     } 
-                    todosJug.check(tropa, superior, inferior); // Revisar
+                    superior.imprimirA();
+                    inferior.imprimirA();
                     todosJug.imprimir();
                     JOptionPane.showMessageDialog(null, tab.show()); // se ve adición
                 }
+                todosJug.check(tropa, superior, inferior); // Revisar
                 rev++;
+                // Verificar si la torre muere ---------------------------------
+                if (TorreCPU.isDestruido()){ // Jugador gana
+                    resultado = 4;
+                    play = false;
+                }    
+                else if(TorreJug.isDestruido()){ // CPU gana 
+                    resultado = 5;
+                    play = false;
+                }
             }
             
             System.out.println("Todos Jug: "+todosJug.getEnjuego());
@@ -278,25 +296,13 @@ public class Proyecto_Tower_Defense {
             rev = 0;
             
             
-            // ------------------------------------------- Verificación de escena
-
-            if (TorreCPU.isDestruido())  resultado = 4;    // Jugador gana
-            else if(TorreJug.isDestruido()) resultado = 5; // CPU gana 
-            
+            // ------------------------------------------- Verificación de escena           
             if(todosJug.getEnjuego() == 0 && contador > max ) {
                 JOptionPane.showMessageDialog(null, "Nadie ha sido derrotado. Nueva Ronda");
                 resultado = 2; //1
                 play = false;
             }
-            
-            
-//            else resultado = 3;                            // Continua el juego
-//
-//            if (contador == 25){
-//                resultado = 5;
-//                play = false;
-//            }
-
+           
             contador ++;
         } // fin while
         
@@ -306,62 +312,3 @@ public class Proyecto_Tower_Defense {
     }
     
 }
-
-
-/*
-
-            // Si todavía hay elementos en cola
-            if (!colaJug.vacia() || !colaCPU.vacia()) {  // Revisa si están vacías
-                Nodo aux = null;  // Tenemos un nodo que podemos usa
-                // ----------------- Si es par y no vacía toma de (JUGADORES) 
-                if (contador % 2 == 0 && !colaJug.vacia()) {  
-                    aux = colaJug.atiende();  // Nodo auxiliar guarda
-                } 
-                // ----------------- Si es impar y no vacía toma de lista de (CPU)
-                else if (contador % 2 != 0 && !colaCPU.vacia())  { 
-                    aux = colaCPU.atiende(); // Nodo auxiliar guarda
-                }
-
-                // Se agrega el camino correspondiente
-                if(aux!= null){ // Se revisa si el contenido es 
-                    if(aux.getTropa().getCamino() == 1){  
-                        superior.ingresa(aux.getTropa());
-                    }
-                    else if (aux.getTropa().getCamino() == 2){
-                        inferior.ingresa(aux.getTropa());
-                    }
-                    todosJug.agregar(aux.getTropa()); // Se agrega a la lista
-                }
-                superior.imprimirJug();
-                inferior.imprimirJug();
-
-                JOptionPane.showMessageDialog(null, tab.show());
-            }
-            
-            
-            
-//            // Check si hay algo en lista (en caso de que hay algo nulo
-//            if (todosJug.getTropa(0)== null) rev = 1;
-//            else rev = 0;
-//            
-//            while(rev < todosJug.getEnjuego()){
-//                
-//                Tropa trope = todosJug.getTropa(rev);
-//                System.out.println(trope.getPlayer()+" "+trope.getTipoTropa()+
-//                        " "+trope.getCamino()+" "+trope.getId()); 
-//                
-//                Torre enemTorre = new Torre();
-//                if (trope.getPlayer() == 1) enemTorre = TorreCPU;
-//                else enemTorre = TorreJug;
-//                
-//                if(todosJug.getCamino(rev) == 1){
-//                    superior.avanza(trope, enemTorre);
-//                }
-//                else{
-//                    inferior.avanza(trope, enemTorre);
-//                }
-//                JOptionPane.showMessageDialog(null, tab.show());
-//                
-//                rev++;
-//            }
-*/

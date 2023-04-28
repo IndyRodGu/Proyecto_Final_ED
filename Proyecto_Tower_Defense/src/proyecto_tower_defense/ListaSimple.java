@@ -108,31 +108,9 @@ public class ListaSimple {
         else return null;
     }
     
-//    public Tropa getTorreEnem(int i){
-//        Nodo aux = cabeza;
-//        int encuentra = 0;
-//        while(encuentra != 1 && aux.getSiguiente() != null){
-//            aux = aux.getSiguiente();
-//        }
-//        return aux.getTropa();
-//    }
-//    
-    
-//    public Nodo getCabeza() {
-//        return cabeza;
-//    }
-//
-//    public void setCabeza(Nodo cabeza) {
-//        this.cabeza = cabeza;
-//    }
-
     public int getEnjuego() {
         return enjuego;
     }
-
-//    public void setEnjuego(int enjuego) {
-//        this.enjuego = enjuego;
-//    }
 
     public void imprimir(){
         String lista = "";

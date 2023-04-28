@@ -192,11 +192,7 @@ public class Camino {
         }
         
     }
-    
-    
-    
-   
-    
+        
         // Imprimir adoquines ------------------------------------------------------
     
     public void imprimirA(){   // Revisa de la cabeza al último

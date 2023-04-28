@@ -96,7 +96,7 @@ public class Cola {
         if (cabeza != null) {
             cabeza = cabeza.getSiguiente();
             aux.setSiguiente(null);
-            //qtyTropa--;
+            qtyTropa--;
         }
         return aux;
     }

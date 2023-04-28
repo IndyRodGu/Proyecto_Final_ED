@@ -25,8 +25,6 @@ public class Tropa {
 
 /* Asigna una debilidad, su imagen y el danio que causa */
 
-      
-
     //Gets and Sets
     
     /*Para cambiar el tipo de tropa, cada uno tiene debilidad,imagen y nivel daño*/

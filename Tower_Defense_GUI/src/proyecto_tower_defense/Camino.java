@@ -55,9 +55,9 @@ public class Camino {
     
     // Jugadores avanzan en tablero --------------------------------------------
     
-    public void avanza(Tropa t, Torre enem){
-        if(t.getPlayer()== 1) avanzaJug(t,enem);
-        else avanzaCPU(t, enem);
+    public void avanza(Tropa t, Torre enem, ListaSimple lista){
+        if(t.getPlayer()== 1) avanzaJug(t,enem, lista);
+        else avanzaCPU(t, enem, lista);
     }
    
     
@@ -80,7 +80,7 @@ public class Camino {
     public boolean existe (int id){ // Busca el "adoquin" en que está el jugador
         NodoCam aux = cabeza;                        
         // Evalua si id del jugador es igual
-        while(aux != null && (aux.getDato() == null || aux.getDato().getId() != id )){
+        while(aux != null && (aux.getDato()==null || aux.getDato().getId() <id )){
             aux = aux.getNext();
         }
         if(aux != null && aux.getDato().getId() == id) return true;
@@ -91,7 +91,7 @@ public class Camino {
     
     // Avanza el Jugador -------------------------------------------------------
     
-    private void avanzaJug(Tropa tropa, Torre torreEnemiga){
+    private void avanzaJug(Tropa tropa, Torre torreEnemiga, ListaSimple lista){
         int posActual = localizar(tropa.getId()); // Localizar tropa en camino
         NodoCam aux = cabeza;                     // Nodo para recorrer
         while(posActual != aux.getAdoquin()){     // Recorrer hasta encontrar
@@ -106,17 +106,21 @@ public class Camino {
                 aux.getNext().setDato(A);    // asigna al siguiente
                 aux.setDato(null);           // anterior nulo (cambio de campo)
                 posActual++;                 // cambia de posición
+                lista.extraer(B.getId());
                 // NOTA: Borrar B en lista
             }
         // ---- B derrota a A
             else if (B.getTipoTropa() == A.getVulnerability()){
                 aux.setDato(null);          // se borra jugador de camino
+                lista.extraer(A.getId());
                 // NOTA: Borrar A en lista
             }
         // ---- A == B - se acaban entre sí
             else{
                 aux.getNext().setDato(null); // Borra enemigo
                 aux.setDato(null);           // Borra jugador
+                lista.extraer(A.getId());
+                lista.extraer(B.getId());
                 // NOTA: Borrar A y B en lista
             }      
         }
@@ -129,15 +133,16 @@ public class Camino {
         // Si ahora está en el último lugar, ataca la torre
         if (posActual == ultimo.getAdoquin()){
             torreEnemiga.danio(tropa.getTowerWreckage()); // hace daño
+            lista.extraer(ultimo.getDato().getId());
             ultimo.setDato(null); // quita del tablero
-           // NOTA: Borrar 
+            // NOTA: Borrar 
         }
     }
 
     
     // Movimiento del CPU ------------------------------------------------------   
     
-    private void avanzaCPU(Tropa tropa, Torre torreEnemiga){
+    private void avanzaCPU(Tropa tropa, Torre torreEnemiga, ListaSimple lista){
         int posActual = localizar(tropa.getId()); // Localizar tropa en camino
         NodoCam aux = cabeza;                     // Nodo para recorrer
         while(posActual != aux.getAdoquin()){     // Recorrer hasta encontrar 
@@ -151,18 +156,22 @@ public class Camino {
                 aux.getBack().setDato(null); // quita anterior
                 aux.getBack().setDato(A);    // asigna cpu a anterior
                 aux.setDato(null);           // se hace nulo (cambio de campo)
+                lista.extraer(B.getId());
                 posActual--;                 // cambia de posición
                 // NOTA: Borrar B en lista
             }
         // ---- B derrota a A
             else if (B.getTipoTropa() == A.getVulnerability()){
                 aux.setDato(null);          // se borra cpu de camino
+                lista.extraer(A.getId());                
                 // NOTA: Borrar A en lista
             }
         // ---- A == B - se acaban entre sí
             else{
                 aux.getBack().setDato(null); // Borra jugador
                 aux.setDato(null);           // Borra cpu
+                lista.extraer(A.getId());
+                lista.extraer(B.getId());                
                 // NOTA: Borrar A y B en lista
             }   
         }
@@ -176,27 +185,30 @@ public class Camino {
         if (posActual == cabeza.getAdoquin()){
             torreEnemiga.danio(tropa.getTowerWreckage()); // hace daño
             cabeza.setDato(null); // quita del tablero
+            lista.extraer(cabeza.getDato().getId());
            // NOTA: Borrar en lista
         }
         
     }
     
-    
-    
-    /*
-    
-        // Imprimir adoquines ------------------------------------------------------
+    // Imprimir adoquines ------------------------------------------------------
     
     public void imprimirA(){   // Revisa de la cabeza al último
         NodoCam aux = cabeza;
         while(aux != null){
-            System.out.print(aux.getAdoquin()+" ");
+            if(aux.getDato()!= null){
+                TipoTropa t = aux.getDato().getTipoTropa();
+                if(t == TipoTropa.ARQUERO) System.out.print(" A ");
+                else if(t == TipoTropa.MAGO) System.out.print(" M ");
+                else System.out.print(" C ");
+            }
+            else System.out.print(" _ ");
             aux = aux.getNext();
         }
         System.out.println("");
     }
     
-    public void imprimirB(){   // Revisa del último a la cabeza
+    /*public void imprimirB(){   // Revisa del último a la cabeza
         NodoCam aux = ultimo;
         while(aux != null){
             System.out.print(aux.getAdoquin()+" ");

@@ -159,27 +159,7 @@ public abstract class Juego extends JFrame implements ActionListener {
         fondoMenu.setVisible(true);
         panelMenu.add(fondoMenu, 0);
 
-        colaCPU.agregaTropaCPU(disponibles - 1); // Agrega tropas
-        colaCPU.SelecCaminoCPU();                // Asignar caminos           
-        System.out.println("** Tropas del CPU **");
-        System.out.println(colaCPU.verLista());
-
-        // AGREGAR EL PANEL MENU A LA VENTANA
-        ventana.add(panelMenu);
-        ventana.setVisible(true);
-
-        JOptionPane.showMessageDialog(null, "** Tropas del CPU **\n"
-                + colaCPU.verLista());
-
-        colaJug = menuJuego(disponibles);        // Cola jugadores
-        System.out.println("** Tropas del Jugador **");
-        System.out.println(colaJug.verLista());  // Ver listas 
-
-        JOptionPane.showMessageDialog(null, "** Tropas del Jugador **\n"
-                + colaJug.verLista());
-
-        juego(ronda);
-        escena = 3;
+        //escena = 3;
 
         
         //Dentro del parentesis se pone el texto que va a contener el boton
@@ -200,15 +180,34 @@ public abstract class Juego extends JFrame implements ActionListener {
             }
         });
         
+        // AGREGAR EL PANEL MENU A LA VENTANA
+        ventana.add(panelMenu);
+        ventana.setVisible(true);
+        
+        colaCPU.agregaTropaCPU(disponibles - 1); // Agrega tropas
+        colaCPU.SelecCaminoCPU();                // Asignar caminos           
+        System.out.println("** Tropas del CPU **");
+        System.out.println(colaCPU.verLista());
+
+
+        JOptionPane.showMessageDialog(null, "** Tropas del CPU **\n"
+                + colaCPU.verLista());
+
+        colaJug = menuJuego(disponibles);        // Cola jugadores
+        System.out.println("** Tropas del Jugador **");
+        System.out.println(colaJug.verLista());  // Ver listas 
+
+        JOptionPane.showMessageDialog(null, "** Tropas del Jugador **\n"
+                + colaJug.verLista());
+        
     }
 
     public void juego(int ronda) {
+        panelMenu.setVisible(false);
         // CREAR OBJETOS TORRE Y CRONOMETRO
         Torre torre1 = new Torre();
         Torre torre2 = new Torre();
         Cronometro crono = new Cronometro();
-
-        panelMenu.setVisible(false);
 
         // CREAMOS UN PANEL DEL TAMAÑO DE LA VENTNA
         panelJuego = new JPanel();
