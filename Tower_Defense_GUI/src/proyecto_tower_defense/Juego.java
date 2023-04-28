@@ -49,7 +49,7 @@ public abstract class Juego extends JFrame implements ActionListener {
     static JPanel panelJuego;
     JLabel fondoJuego;
     ImageIcon imagenFondoJuego;
-    JLabel ronda;
+    JLabel rondaT;
 
     // TORRE
     JLabel puntajeTorre1;
@@ -223,15 +223,15 @@ public abstract class Juego extends JFrame implements ActionListener {
         
 
         // Nombre Ronda
-        ronda = new JLabel ("Ronda: "+ ronda); // Agregar el resto del codigo cuando se haga el merge con el proyecto principal
-        ronda.setBounds(550, 70, 100, 30);
-        ronda.setFont(new Font("SANS_SERIF", Font.BOLD, 15));
-        ronda.setHorizontalAlignment(JLabel.CENTER);
-        ronda.setForeground(Color.BLACK);
-        ronda.setBackground(Color.CYAN);
-        ronda.setOpaque(true);
-        ronda.setVisible(true);
-        panelJuego.add(ronda, 0);
+        rondaT = new JLabel ("Ronda: "+ ronda); // Agregar el resto del codigo cuando se haga el merge con el proyecto principal
+        rondaT.setBounds(550, 70, 100, 30);
+        rondaT.setFont(new Font("SANS_SERIF", Font.BOLD, 15));
+        rondaT.setHorizontalAlignment(JLabel.CENTER);
+        rondaT.setForeground(Color.BLACK);
+        rondaT.setBackground(Color.CYAN);
+        rondaT.setOpaque(true);
+        rondaT.setVisible(true);
+        panelJuego.add(rondaT, 0);
 
         //Etiqueta donde se colocara el tiempo 
         panelJuego.add(crono.getTiempo(), 0);
