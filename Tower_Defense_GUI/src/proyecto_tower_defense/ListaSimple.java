@@ -38,7 +38,7 @@ public class ListaSimple {
         else{
             Nodo aux = cabeza;
             while (aux.getSiguiente() != null && 
-                    id != aux.getSiguiente().getTropa().getId()) {
+                    aux.getTropa().getId() <= id) {
                 aux = aux.getSiguiente(); // Toma el siguiente
                 System.out.println("");
             }

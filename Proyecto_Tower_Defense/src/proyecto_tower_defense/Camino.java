@@ -80,13 +80,12 @@ public class Camino {
     public boolean existe (int id){ // Busca el "adoquin" en que está el jugador
         NodoCam aux = cabeza;                        
         // Evalua si id del jugador es igual
-        
-        while(aux != null && (aux.getDato() == null || aux.getDato().getId() != id )){  
+        while(aux != null && 
+                (aux.getDato() == null || aux.getDato().getId() < id )){  
             aux = aux.getNext();
         }
         if(aux != null && aux.getDato().getId() == id) return true;
-        
-        return false;
+        else return false;
     }
     
     
@@ -203,7 +202,12 @@ public class Camino {
     public void imprimirA(){   // Revisa de la cabeza al último
         NodoCam aux = cabeza;
         while(aux != null){
-            if(aux.getDato()!= null) System.out.print(" x ");
+            if(aux.getDato()!= null){
+                TipoTropa t = aux.getDato().getTipoTropa();
+                if(t == TipoTropa.ARQUERO) System.out.print(" A ");
+                else if(t == TipoTropa.MAGO) System.out.print(" M ");
+                else System.out.print(" C ");
+            }
             else System.out.print(" _ ");
             aux = aux.getNext();
         }

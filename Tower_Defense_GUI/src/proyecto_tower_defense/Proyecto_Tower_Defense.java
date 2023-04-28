@@ -34,40 +34,17 @@ public class Proyecto_Tower_Defense {
         int op = game.getEscena();
         
         do {
+            op = game.getEscena();
             disponibles = ronda + 4;   
             switch (op) {
                 // Pantalla de bienvenida
                  case(0):
                     break;
-                
-                
                 // ------------------ Escena 1: Selección de tropas
                 case (1): 
                     // 1. Creación de colas
-
-                    colaJug = menuJuego(disponibles);        // Cola jugadores
-
-                    colaCPU.agregaTropaCPU(disponibles - 1); // Agrega tropas
-                    colaCPU.SelecCaminoCPU();                // Asignar caminos           
-                    System.out.println("** Tropas del CPU **");
-                    System.out.println(colaCPU.verLista());
-
-                    //contador = 0;
-
                     game.menu(colaCPU,colaJug,disponibles);
-//                    colaCPU.agregaTropaCPU(disponibles - 1); // Agrega tropas
-//                    colaCPU.SelecCaminoCPU();                // Asignar caminos           
-//                    System.out.println("** Tropas del CPU **");
-//                    System.out.println(colaCPU.verLista());
-//                    colaJug = menuJuego(disponibles);        // Cola jugadores
-//                    System.out.println("** Tropas del Jugador **");
-//                    System.out.println(colaJug.verLista());  // Ver listas 
-
-                    colaJug = menuJuego(disponibles);        // Cola jugadores
-                    System.out.println("** Tropas del Jugador **");
-                    System.out.println(colaJug.verLista());  // Ver listas 
-
-                    op = 3;                                  // 3 = juego
+                   // op = 3;                                  // 3 = juego
                     ronda++;                                 // Agrega ronda
                     break;
 
@@ -78,6 +55,7 @@ public class Proyecto_Tower_Defense {
                 
                 // ------------------ Escena 3: Desarrollo del juego
                 case (3):
+                    game.juego();
                     op = juego(colaJug, colaCPU, disponibles); // Presenta juego                           
                     break;
                     
@@ -285,7 +263,7 @@ public class Proyecto_Tower_Defense {
                         if(cami == 1) superior.avanza(tropa, TorreJug);
                         else inferior.avanza (tropa, TorreJug);    
                     } 
-                    todosJug.check(tropa, superior, inferior);
+                    todosJug.check(tropa, superior, inferior); // Revisar
                     todosJug.imprimir();
                     JOptionPane.showMessageDialog(null, tab.show()); // se ve adición
                 }

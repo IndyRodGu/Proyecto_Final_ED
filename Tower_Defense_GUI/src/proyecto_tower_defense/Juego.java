@@ -152,32 +152,25 @@ public abstract class Juego extends JFrame implements ActionListener {
         colaCPU.SelecCaminoCPU();                // Asignar caminos           
         System.out.println("** Tropas del CPU **");
         System.out.println(colaCPU.verLista());
-
-        // Ver tropas del CPU en la ventana
-        tropaCPU = new JLabel("\t\t\t Tropas del CPU \n"
-                + colaCPU.verLista());
-        tropaCPU.setBounds(100, 150, 100, 60);
-        puntajeTorre1.setFont(new Font("SANS_SERIF", Font.BOLD, 10));
-        tropaCPU.setVisible(true);
-        panelMenu.add(tropaCPU);
+       
 
         // AGREGAR EL PANEL MENU A LA VENTANA
-   
-
+        ventana.add(panelMenu);
+        ventana.setVisible(true);
+        
+        JOptionPane.showMessageDialog(null,"** Tropas del CPU **\n"
+                    +colaCPU.verLista());
+        
         colaJug = menuJuego(disponibles);        // Cola jugadores
         System.out.println("** Tropas del Jugador **");
         System.out.println(colaJug.verLista());  // Ver listas 
 
-        // Ver tropas del Jugador
-        tropaJug = new JLabel("\t\t\tJugadores del Usuario \n"
-                + colaJug.verLista());
-        tropaCPU.setBounds(100, 300, 100, 60);
-        puntajeTorre1.setFont(new Font("SANS_SERIF", Font.BOLD, 10));
-        tropaCPU.setVisible(true);
-        panelMenu.add(tropaJug);
-
+        JOptionPane.showMessageDialog(null,"** Tropas del Jugador **\n"
+                    +colaJug.verLista());
+       
+        juego();
+        escena = 3;
         /*
-
         // BOTÓN CONTINUAR
         boton1.setText("Continuar");
         boton1.setBounds(110, 675, 100, 40);
@@ -185,12 +178,17 @@ public abstract class Juego extends JFrame implements ActionListener {
         boton1.setBackground(Color.white);
         panelMenu.add(boton1, 0);
 
+        // AGREGAR EL PANEL MENU A LA VENTANA
+        ventana.add(panelMenu);
+        ventana.setVisible(true);
+        
         // TÍTULO "PERSONAJES"
         label1 = new JLabel("PERSONAJES");
         label1.setBounds(35, 610, 100, 30);
         label1.setVisible(true);
         panelMenu.add(label1, 0);
-
+        
+        
         // COMBO BOX DE PERSONAJES
         combo1 = new JComboBox<String>();
         combo1.setBounds(125, 610, 110, 30);
@@ -213,10 +211,8 @@ public abstract class Juego extends JFrame implements ActionListener {
         combo2.addItem("Camino inferior");
         combo2.setVisible(true);
         panelMenu.add(combo2, 0);
-         */
-        // AGREGAR EL PANEL MENU A LA VENTANA
-        ventana.add(panelMenu);
-        ventana.setVisible(true);
+         
+        
 
         // Cuando le damos click al boton1 (continuar) pasa al método juego
         boton1.addMouseListener(new MouseAdapter() {
@@ -234,7 +230,7 @@ public abstract class Juego extends JFrame implements ActionListener {
                 juego();
             }
         });
-
+        */
     }
 
     public void juego() {
