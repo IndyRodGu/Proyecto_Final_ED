@@ -303,7 +303,7 @@ public abstract class Juego extends JFrame implements ActionListener {
 <<<<<<< Updated upstream
     public static void main(String[] ar) {
         Juego formulario1 = new Juego() {
-            @Override
+            //@Override
             public void actionPerformed(ActionEvent e) {
                 throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
             }
