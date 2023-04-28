@@ -14,7 +14,7 @@ public class Proyecto_Tower_Defense {
         int disponibles;            // Cantidad de tropas disponibles
         Cola colaJug = new Cola();  // Se crea cola para jugadores
         Cola colaCPU = new Cola();  // Se crea cola para cpu 
-        //int contador = 0;
+        int opcion = 0;
         
         // Menu principal ------------------------------------------------------
         boolean juego = true;       // Mientras el juego esté en curso
@@ -53,33 +53,39 @@ public class Proyecto_Tower_Defense {
                     
                 // ----------------- Escena 4: Gana Jugador 
                 case (4):
-                    JOptionPane.showMessageDialog(null, "¡Ganaste!.");
+                    opcion = Integer.parseInt(JOptionPane.showInputDialog
+                        ("¡Ganaste! :) \n¿Qué deseas hacer?\n\n"
+                        + "1. Juegar de nuevo\n"
+                        + "2. Terminar el juego"));
+                
+                    if (opcion == 1) {
+                        ronda=1;    // Devuelve a ronda 1
+                        op = 1;     //se regresa al menu del juego 
+                    } 
+                    else {
+                        op = 2;     // Cierra la lata
+                    }
                     break;
                     
                 // ----------------- Escena 5: Gana CPU (Jugador pierde)
                 case (5):
-                    JOptionPane.showMessageDialog(null, "Perdiste. Mejor suerte la próxima.");
-                    break;
-                    
-                // ----------------- Escena 6: Se acabó el tiempo (Timeout) 
-                case (6):
-                     //if ( >= 300000) {
-                    //if ( >= 300000) {
-                int opcion = Integer.parseInt(JOptionPane.showInputDialog("Se acabó el tiempo. ¿Qué desea hacer?\n\n"
-                        + "1. Reintentar\n"
-                        + "2. Terminar el juego"));
+                    opcion = Integer.parseInt(JOptionPane.showInputDialog
+                        ("¡Perdiste! :( \n¿Qué deseas hacer?\n\n"
+                        + "1. Reintentar \n"
+                        + "2. Salir del juego"));
                 
-                if (opcion == 1) {
-                    //tiempo = 0;
-                    ronda=1;
-                    op = 1;//se regresa al menu del juego 
-                } else {
-                    op = 6;
-                }
-                     JOptionPane.showMessageDialog(null, "Perdiste por timeout.");
+                    if (opcion == 1) {
+                        ronda=1;    // Devuelve a ronda 1
+                        op = 1;     //se regresa al menu del juego 
+                    } 
+                    else {
+                        op = 2;     // Cierra la lata
+                    }
+                    
                     break;
                     
-                // ----------------- Escena 7: SE acaba el tiempo (Timeout)
+            
+                // ----------------- Escena 7: Se acaba el tiempo (Timeout)
                 default:
                     JOptionPane.showMessageDialog(null,
                             "Ingrese una opcion valida");
@@ -271,6 +277,18 @@ public class Proyecto_Tower_Defense {
                 }
                 todosJug.check(tropa, superior, inferior);
                 rev++;
+                
+                
+                // Verificar si la torre muere ---------------------------------
+                if (TorreCPU.isDestruido()){ // Jugador gana
+                    resultado = 4;
+                    play = false;
+                }    
+                else if(TorreJug.isDestruido()){ // CPU gana 
+                    resultado = 5;
+                    play = false;
+                } 
+                
             }
             
             System.out.println("Todos Jug: "+todosJug.getEnjuego());
@@ -281,23 +299,13 @@ public class Proyecto_Tower_Defense {
             rev = 0;
             
             
-            // ------------------------------------------- Verificación de escena
+            // ------------------------------------- Verificación de escena
             if(todosJug.getEnjuego() == 0 && contador > agregar) {
                 JOptionPane.showMessageDialog(null, "Nadie ha sido derrotado. Nueva Ronda");
                 resultado = 1; //1
                 play = false;
             }
-            if (TorreCPU.isDestruido())  resultado = 4;    // Jugador gana
-            else if(TorreJug.isDestruido()) resultado = 5; // CPU gana 
             
-            
-            
-//            else resultado = 3;                            // Continua el juego
-//
-//            if (contador == 25){
-//                resultado = 5;
-//                play = false;
-//            }
 
             contador ++;
             
