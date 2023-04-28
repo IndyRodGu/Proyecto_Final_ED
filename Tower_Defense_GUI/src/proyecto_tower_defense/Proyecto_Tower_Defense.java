@@ -19,7 +19,7 @@ public class Proyecto_Tower_Defense {
         Cola colaCPU = new Cola();  // Se crea cola para cpu 
         //int contador = 0;
         
-        Juego game=new Juego(colaJug, colaCPU,ronda+4) {
+        Juego game=new Juego(colaJug, colaCPU,ronda+4, ronda) {
              //@Override
             public void actionPerformed(ActionEvent e) {
                 throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -55,7 +55,7 @@ public class Proyecto_Tower_Defense {
                 
                 // ------------------ Escena 3: Desarrollo del juego
                 case (3):
-                    game.juego();
+                    game.juego(ronda);
                     op = juego(colaJug, colaCPU, disponibles); // Presenta juego                           
                     break;
                     
