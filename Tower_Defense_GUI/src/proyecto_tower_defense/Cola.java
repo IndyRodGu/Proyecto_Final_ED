@@ -114,6 +114,7 @@ public class Cola {
             }
             aux = aux.getSiguiente();
         }
+        s+="\n";
         return s;
     }
     
@@ -129,8 +130,6 @@ public class Cola {
             tropCamSuperior = calculo; 
             tropCamInferior = qtyTropa - tropCamSuperior;
         }
-        System.out.println("Tropas CPU: \nCamino Superior" + tropCamSuperior + ""
-                + " y Camino Inferior " + tropCamInferior);
         
         // Asignación de los caminos de los 
         Nodo aux =  cabeza; // Nodo para recorrer    
@@ -143,20 +142,20 @@ public class Cola {
             if (caminoCPU == 0 && camSup <= tropCamSuperior) {
                 aux.getTropa().setCamino(1); // Camino superior es 1 en tropa
                 camSup++; //Se agrega a la cuenta de superior
-                System.out.println("Camino superior elegido");
+                //System.out.println("Camino superior elegido");
             } 
             // Si random es 1 ---> Cam inferior, mientras menor al valor total
             else if (caminoCPU == 1 && camInf <= tropCamInferior) {
                 aux.getTropa().setCamino(2); // En tropa, 2 es cam inferior
                 camInf++; // Se agrega a la cuenta de camino inferior
-                System.out.println("Camino inferior elegido");
+                //System.out.println("Camino inferior elegido");
             }
             else {
             // si random es de un camino que ya llegó a máximo
             // se invierte el valor
                 if (caminoCPU == 1) aux.getTropa().setCamino(1);
                 else aux.getTropa().setCamino(2);
-                System.out.println("Camino opuesto elegido");
+                //System.out.println("Camino opuesto elegido");
             }
             aux  = aux.getSiguiente(); // continua al siguiente
         }
