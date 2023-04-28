@@ -1,8 +1,6 @@
-
 package proyecto_tower_defense;
 
 /* Movimientos del juego*/
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
@@ -21,9 +19,8 @@ import static proyecto_tower_defense.Proyecto_Tower_Defense.menuJuego;
 
 public abstract class Juego extends JFrame implements ActionListener {
 
-    
     int escena = 0;
-    
+
     // MARCO DE LA APP
     JFrame ventana;
 
@@ -40,6 +37,8 @@ public abstract class Juego extends JFrame implements ActionListener {
     String jugador;
     JLabel nombre;
     JLabel cpu;
+    JLabel tropaCPU;
+    JLabel tropaJug;
 
     // COMBO BOX
     private JLabel label1, label2;
@@ -50,16 +49,14 @@ public abstract class Juego extends JFrame implements ActionListener {
     static JPanel panelJuego;
     JLabel fondoJuego;
     ImageIcon imagenFondoJuego;
-    JLabel ronda;  
-    
+    JLabel ronda;
+
     // TORRE
     JLabel puntajeTorre1;
     JLabel puntajeTorre2;
 
     // TIEMPO
-
-    
-    public Juego(Cola colaCPU, Cola colaJug,int disponibles)  {
+    public Juego(Cola colaCPU, Cola colaJug, int disponibles) {
         //CREAR EL MARCO DE LA APP
         ventana = new JFrame("Tower Defense");
         ventana.setSize(1200, 750); // Tama–o de la ventana
@@ -90,7 +87,7 @@ public abstract class Juego extends JFrame implements ActionListener {
         entre el parentesis se da la ruta de donde se encuentra la imagen */
         fondoPresentacion.setBounds(0, 0, ventana.getWidth(),
                 ventana.getHeight());
-        imagenFondoPres = new ImageIcon("Imagen/fondo1.png");
+        imagenFondoPres = new ImageIcon("Imagenes/fondo1.png");
         /* (getImage: es para coger la imagen) 
         (.getScaleInstance: le vamos a dar una nueva escala) 
         (ventana.getWidth: del tama–o/marco de la ventana) 
@@ -105,7 +102,7 @@ public abstract class Juego extends JFrame implements ActionListener {
 
         //Dentro del parentesis se pone el texto que va a contener el boton
         iniciar = new JButton("Iniciar");
-        iniciar.setBounds(ventana.getWidth() - 120, 20, 90, 40);
+        iniciar.setBounds(ventana.getWidth()/2-50, ventana.getHeight()/3*2, 100, 40);
         iniciar.setVisible(true); //Para que el boton sea visible
         /*Aqui estamos montandolo encima de nuestro marco y lo colocamos como una capa, va a ser la parte de abajo
         Debo agregar los componenetes al panel, no la a ventana*/
@@ -113,25 +110,23 @@ public abstract class Juego extends JFrame implements ActionListener {
 
         //MENU, darle memoria al boton
         boton1 = new JButton();
-        
+
         // El boton por ahora no hace nada por tanto se crea un evento del boton
         iniciar.addMouseListener(new MouseAdapter() {
             //Funci—n del mouse
             public void mousePressed(MouseEvent e) {
                 // Al dale click a iniciar deber’a aparecer el panel de menu
                 //menu();
-                menu(colaCPU,colaJug,disponibles);
-                escena=1;
+                menu(colaCPU, colaJug, disponibles);
+                escena = 1;
             }
         });
 
-
-        
         ventana.add(panelPresentacion);
         ventana.setVisible(true);
     }
 
-    public void menu(Cola colaCPU, Cola colaJug,int disponibles) {
+    public void menu(Cola colaCPU, Cola colaJug, int disponibles) {
         /*
         Al llamar el método menú, lo primero que va a hacer es ocultar el panelPresentación
         por eso el "false" dentro del paréntesis
@@ -147,25 +142,39 @@ public abstract class Juego extends JFrame implements ActionListener {
         // FONDO DEL PANEL
         fondoMenu = new JLabel();
         fondoMenu.setBounds(0, 0, ventana.getWidth(), ventana.getHeight());
-        imagenFondoMenu = new ImageIcon("Imagen/camino.png");
+        imagenFondoMenu = new ImageIcon("Imagenes/camino.png");
         imagenFondoMenu = new ImageIcon(imagenFondoMenu.getImage().getScaledInstance(ventana.getWidth(), ventana.getHeight(), Image.SCALE_DEFAULT));
         fondoMenu.setIcon(imagenFondoMenu);
         fondoMenu.setVisible(true);
         panelMenu.add(fondoMenu, 0);
-        
-        
+
         colaCPU.agregaTropaCPU(disponibles - 1); // Agrega tropas
         colaCPU.SelecCaminoCPU();                // Asignar caminos           
         System.out.println("** Tropas del CPU **");
         System.out.println(colaCPU.verLista());
-        
+
+        // Ver tropas del CPU en la ventana
+        tropaCPU = new JLabel("\t\t\t Tropas del CPU \n"
+                + colaCPU.verLista());
+        tropaCPU.setBounds(100, 150, 100, 60);
+        puntajeTorre1.setFont(new Font("SANS_SERIF", Font.BOLD, 10));
+        tropaCPU.setVisible(true);
+        panelMenu.add(tropaCPU);
+
         // AGREGAR EL PANEL MENU A LA VENTANA
-        ventana.add(panelMenu);
-        ventana.setVisible(true);
-        
+   
+
         colaJug = menuJuego(disponibles);        // Cola jugadores
         System.out.println("** Tropas del Jugador **");
         System.out.println(colaJug.verLista());  // Ver listas 
+
+        // Ver tropas del Jugador
+        tropaJug = new JLabel("\t\t\tJugadores del Usuario \n"
+                + colaJug.verLista());
+        tropaCPU.setBounds(100, 300, 100, 60);
+        puntajeTorre1.setFont(new Font("SANS_SERIF", Font.BOLD, 10));
+        tropaCPU.setVisible(true);
+        panelMenu.add(tropaJug);
 
         /*
 
@@ -204,7 +213,7 @@ public abstract class Juego extends JFrame implements ActionListener {
         combo2.addItem("Camino inferior");
         combo2.setVisible(true);
         panelMenu.add(combo2, 0);
-
+         */
         // AGREGAR EL PANEL MENU A LA VENTANA
         ventana.add(panelMenu);
         ventana.setVisible(true);
@@ -225,11 +234,9 @@ public abstract class Juego extends JFrame implements ActionListener {
                 juego();
             }
         });
-        */
 
     }
-    
-    
+
     public void juego() {
         // CREAR OBJETOS TORRE Y CRONOMETRO
         Torre torre1 = new Torre();
@@ -259,48 +266,45 @@ public abstract class Juego extends JFrame implements ActionListener {
         puntajeTorre1.setBounds(25, 200, 200, 30);
         puntajeTorre1.setFont(new Font("SANS_SERIF", Font.BOLD, 10));
         panelJuego.add(puntajeTorre1, 0);
-        
+
         //NOMBRE DEL USUARIO EN TORRE 1
-        nombre = new JLabel ("Jugador: "+ jugador);
-        nombre.setBounds (20, 175, 400, 30);
+        nombre = new JLabel("Jugador: " + jugador);
+        nombre.setBounds(20, 175, 400, 30);
         nombre.setFont(new Font("SANS_SERIF", Font.BOLD, 15));
         panelJuego.add(nombre, 0);
-        
+
         // TORRE 2
         puntajeTorre2 = new JLabel("Puntos Torre: " + torre2.getVida());
         puntajeTorre2.setBounds(1075, 200, 200, 30);
         puntajeTorre2.setFont(new Font("SANS_SERIF", Font.BOLD, 10));
         panelJuego.add(puntajeTorre2, 0);
-        
+
         //NOMBRE DEL CPU EN TORRE 2
         cpu = new JLabel("CPU");
         cpu.setBounds(1107, 175, 70, 30);
         cpu.setFont(new Font("SANS_SERIF", Font.BOLD, 15));
         panelJuego.add(cpu, 0);
-        
+
         // Nombre Ronda
-        ronda = new JLabel ("Ronda: "); // Agregar el resto del codigo cuando se haga el merge con el proyecto principal
-        ronda.setBounds(550, 70 , 100 , 30);
+        ronda = new JLabel("Ronda: "); // Agregar el resto del codigo cuando se haga el merge con el proyecto principal
+        ronda.setBounds(550, 70, 100, 30);
         ronda.setFont(new Font("SANS_SERIF", Font.BOLD, 15));
         ronda.setHorizontalAlignment(JLabel.CENTER);
         ronda.setForeground(Color.BLACK);
         ronda.setBackground(Color.CYAN);
         ronda.setOpaque(true);
         ronda.setVisible(true);
-        panelJuego.add(ronda , 0);
-        
-        
+        panelJuego.add(ronda, 0);
+
         //Etiqueta donde se colocara el tiempo 
         panelJuego.add(crono.getTiempo(), 0);
 
-        
         ventana.add(panelJuego);
         ventana.setVisible(true);
     }
-    
-       
-     
-<<<<<<< Updated upstream
+
+    /*   
+
     public static void main(String[] ar) {
         Juego formulario1 = new Juego() {
             //@Override
@@ -308,7 +312,7 @@ public abstract class Juego extends JFrame implements ActionListener {
                 throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
             }
         };
-=======
+
 //    public static void main(String[] ar) {
 //        Juego formulario1 = new Juego() {
 //            //@Override
@@ -317,11 +321,10 @@ public abstract class Juego extends JFrame implements ActionListener {
 //            }
 //        };
 //    }
-    
-     public int getEscena() {
+     */
+    public int getEscena() {
         return escena;
->>>>>>> Stashed changes
-    }
-    
-}
 
+    }
+
+}
