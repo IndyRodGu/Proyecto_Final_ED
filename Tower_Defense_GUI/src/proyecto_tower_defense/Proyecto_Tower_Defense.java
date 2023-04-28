@@ -1,5 +1,6 @@
 package proyecto_tower_defense;
 
+import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
 
 public class Proyecto_Tower_Defense {
@@ -10,34 +11,62 @@ public class Proyecto_Tower_Defense {
         
         
     public static void main(String[] args) {
-        Juego game=new Juego();
+        
         // Variables -----------------------------------------------------------
         int ronda = 1;              // Número de ronda inicial
-        int disponibles;            // Cantidad de tropas disponibles
+        int disponibles = ronda + 4;// Cantidad de tropas disponibles
         Cola colaJug = new Cola();  // Se crea cola para jugadores
         Cola colaCPU = new Cola();  // Se crea cola para cpu 
         //int contador = 0;
         
+        Juego game=new Juego(colaJug, colaCPU,ronda+4) {
+             //@Override
+            public void actionPerformed(ActionEvent e) {
+                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+            }
+    
+        };
+        
+        
         // Menu principal ------------------------------------------------------
         boolean juego = true;       // Mientras el juego esté en curso
         // Solicita al usuario acción inicial
-        int op = Integer.parseInt(JOptionPane.showInputDialog(null, 
-                    "Tower Defense\n"         
-                    + "1- Iniciar juego\n" 
-                    + "2- Salir"));
+        int op = game.getEscena();
+        
         do {
             disponibles = ronda + 4;   
             switch (op) {
+                // Pantalla de bienvenida
+                 case(0):
+                    break;
+                
+                
                 // ------------------ Escena 1: Selección de tropas
                 case (1): 
                     // 1. Creación de colas
+
+                    colaJug = menuJuego(disponibles);        // Cola jugadores
+
                     colaCPU.agregaTropaCPU(disponibles - 1); // Agrega tropas
                     colaCPU.SelecCaminoCPU();                // Asignar caminos           
                     System.out.println("** Tropas del CPU **");
                     System.out.println(colaCPU.verLista());
+
+                    //contador = 0;
+
+                    game.menu(colaCPU,colaJug,disponibles);
+//                    colaCPU.agregaTropaCPU(disponibles - 1); // Agrega tropas
+//                    colaCPU.SelecCaminoCPU();                // Asignar caminos           
+//                    System.out.println("** Tropas del CPU **");
+//                    System.out.println(colaCPU.verLista());
+//                    colaJug = menuJuego(disponibles);        // Cola jugadores
+//                    System.out.println("** Tropas del Jugador **");
+//                    System.out.println(colaJug.verLista());  // Ver listas 
+
                     colaJug = menuJuego(disponibles);        // Cola jugadores
                     System.out.println("** Tropas del Jugador **");
                     System.out.println(colaJug.verLista());  // Ver listas 
+
                     op = 3;                                  // 3 = juego
                     ronda++;                                 // Agrega ronda
                     break;

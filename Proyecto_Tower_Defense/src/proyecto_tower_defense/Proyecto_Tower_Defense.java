@@ -252,14 +252,16 @@ public class Proyecto_Tower_Defense {
                     int cami = tropa.getCamino();       // Valor del camino de t
                     // ----------------------------------- Mover en los caminos
                     if(tropa.getPlayer() == 1){         // Si es el jugador          
-                        if(cami == 1) superior.avanza(tropa, TorreCPU);
-                        else inferior.avanza (tropa, TorreCPU);     
+                        if(cami == 1) superior.avanza(tropa, TorreCPU,todosJug);
+                        else inferior.avanza (tropa, TorreCPU,todosJug);     
                     }
                     else{                               // Si es el cpu
-                        if(cami == 1) superior.avanza(tropa, TorreJug);
-                        else inferior.avanza (tropa, TorreJug);    
+                        if(cami == 1) superior.avanza(tropa, TorreJug,todosJug);
+                        else inferior.avanza (tropa, TorreJug,todosJug);    
                     } 
                     todosJug.check(tropa, superior, inferior);
+                    superior.imprimirA();
+                    inferior.imprimirA();
                     todosJug.imprimir();
                     JOptionPane.showMessageDialog(null, tab.show()); // se ve adición
                 }
