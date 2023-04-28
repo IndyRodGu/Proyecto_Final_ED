@@ -170,67 +170,7 @@ public abstract class Juego extends JFrame implements ActionListener {
        
         juego();
         escena = 3;
-        /*
-        // BOTÓN CONTINUAR
-        boton1.setText("Continuar");
-        boton1.setBounds(110, 675, 100, 40);
-        boton1.setVisible(true);
-        boton1.setBackground(Color.white);
-        panelMenu.add(boton1, 0);
-
-        // AGREGAR EL PANEL MENU A LA VENTANA
-        ventana.add(panelMenu);
-        ventana.setVisible(true);
         
-        // TÍTULO "PERSONAJES"
-        label1 = new JLabel("PERSONAJES");
-        label1.setBounds(35, 610, 100, 30);
-        label1.setVisible(true);
-        panelMenu.add(label1, 0);
-        
-        
-        // COMBO BOX DE PERSONAJES
-        combo1 = new JComboBox<String>();
-        combo1.setBounds(125, 610, 110, 30);
-        combo1.addItem("Arquero");
-        combo1.addItem("Caballero");
-        combo1.addItem("Mago");
-        combo1.setVisible(true);
-        panelMenu.add(combo1, 0);
-
-        // TÍTULO "CAMINOS"
-        label2 = new JLabel("CAMINOS");
-        label2.setBounds(35, 640, 100, 30);
-        label2.setVisible(true);
-        panelMenu.add(label2, 0);
-
-        // COMBO BOX DE CAMINOS
-        combo2 = new JComboBox<String>();
-        combo2.setBounds(125, 640, 155, 30);
-        combo2.addItem("Camino superior");
-        combo2.addItem("Camino inferior");
-        combo2.setVisible(true);
-        panelMenu.add(combo2, 0);
-         
-        
-
-        // Cuando le damos click al boton1 (continuar) pasa al método juego
-        boton1.addMouseListener(new MouseAdapter() {
-            //Función del mouse
-            public void mouseReleased(MouseEvent e) {
-                // Al dale click a iniciar debería aparecer el panel de menu
-                jugador = JOptionPane.showInputDialog(ventana, "Nombre del jugador:",
-                        "Escriba el nombre aqui");
-
-                while (jugador == null || jugador.compareTo("Escriba el nombre aqui") == 0
-                        || jugador.compareTo("") == 0) {
-                    jugador = JOptionPane.showInputDialog(ventana, "Nombre del jugador:",
-                            "Escriba el nombre aqui");
-                }
-                juego();
-            }
-        });
-        */
     }
 
     public void juego() {
@@ -299,25 +239,6 @@ public abstract class Juego extends JFrame implements ActionListener {
         ventana.setVisible(true);
     }
 
-    /*   
-
-    public static void main(String[] ar) {
-        Juego formulario1 = new Juego() {
-            //@Override
-            public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-            }
-        };
-
-//    public static void main(String[] ar) {
-//        Juego formulario1 = new Juego() {
-//            //@Override
-//            public void actionPerformed(ActionEvent e) {
-//                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-//            }
-//        };
-//    }
-     */
     public int getEscena() {
         return escena;
 
